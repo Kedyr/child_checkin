@@ -1,0 +1,80 @@
+/* 
+    Document   : customK
+    Created on : Apr 25, 2015, 12:12:26 PM
+    Author     : Kedyr <deniskedyr@gmail.com>
+    Description:
+        Purpose of the stylesheet follows.
+*/
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    padding-top: 70px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
+}
+ a.navbar-brand {
+    color: #FFF;
+    text-transform: uppercase;
+    font-size: 22px;
+    font-weight: 900;
+    margin-top: 20px;
+}
+.navbar-default .navbar-brand{color:#fff;}
+#left_nav_menu li a {
+    font-size: 13px;
+    color: #FFF;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+#left_nav_menu li.active a{color:#000;}
+#left_nav_menu li:hover{background-color: #FFF;}
+#left_nav_menu li a:hover{color: #000;}
+#Navigation {background-color: #000;}
+.page-header{margin:20px 0px 20px;}
+label {
+    margin-top: 10px;
+    font-weight: 200;
+    font-size: 15px;
+}
+.btn-md {
+    margin: 10px 0px;
+}
+
+.searchForm {
+    height:50px ;
+    font-size: 20px;
+}
+.autocomplete-suggestions{
+    background-color: rgb(234, 234, 233);
+    padding:10px;
+    font-size: 15px;
+}
+
+.autocomplete-suggestions .even_suggestion{padding: 5px;background-color: rgb(249, 248, 243);}
+.autocomplete-suggestions .odd_suggestion{padding: 5px;}
+
+#childrenResults .table > tbody > tr > td{padding: 1px; border-top:none;}
+#childrenResults .childName{color:#C56829;text-decoration: underline; font-size: 17px;}
+#childrenResults .childMainName{color:green;text-decoration: underline; font-size: 17px;}
+#childrenResults .result1{background-color: #4788EE;}
+#childrenResults .result2{background-color: #009654;}
+#childrenResults .result3{background-color: #FFB801;}
+#childrenResults .childResultstitle{padding:5px;color:#fff;}
+
+input[type=checkbox]{transform:scale(1.5);-webkit-transform:scale(1.5);}
+#childrenResults .checkDo{border:1px solid #FCEBE9; }
+.btn-blac{background-color: #000;color:#fff;}
+.searchResults{background-color:rgb(248, 248, 248);padding:5px;}
+.currentService{color:#DA4631;font-size: 16px;font-weight: bold;}
+
+#bodyContent{margin-bottom: 10px;}

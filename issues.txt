@@ -1,0 +1,3 @@
+should mark children already checked in
+location.reload(); on checkout..does it take alot of their time
+ensure no same cards are given out
