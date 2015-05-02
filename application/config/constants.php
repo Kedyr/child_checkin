@@ -79,5 +79,6 @@ define('COL_CHURCH_CLASS','churchClass');
 define('COL_OTHER_CHURCH','otherChurch');
 define('COL_EMAIL','emailAddress');
 define('COL_WORK_PLACE','workPlace');
+define('COL_CELL_LEADER_CONTACT','cellLeaderContact');
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

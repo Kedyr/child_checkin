@@ -12,7 +12,7 @@ require APPPATH . '/controllers/admin_secure.php';
 class Register extends Admin_secure {
 
     function child() {
-        $data['register_active'] = 'active';
+        $data['accounts_active'] = 'active';
         $this->load->view('accounts/register', $data);
     }
 
@@ -29,8 +29,9 @@ class Register extends Admin_secure {
         $childData[COL_SCHOOL_CLASS] = $this->input->post('sclass');
         $childData[COL_CHURCH_CLASS] = $this->input->post('cclass');
         $dob = $this->input->post('dob');
-        if ($dob > 2) {
-            $date = new DateTime($dob, new DateTimeZone('Africa/Kampala'));
+        if ($dob > 6) {
+            $n_dob = explode("/", $dob);
+            $dob = $n_dob[1].'/'.$n_dob[0].'/'.$n_dob[2];
             $dateoemat = getTime($dob);
             $childData[COL_DOB] = $dateoemat->format('Y-m-d');
         }
@@ -47,7 +48,7 @@ class Register extends Admin_secure {
     }
 
     function handlerRegister($childId) {
-        $data['register_active'] = 'active';
+        $data['accounts_active'] = 'active';
         if (!is_numeric($childId))
             show_error("Selected Child is wrong");
         $data['child_id'] = $childId;

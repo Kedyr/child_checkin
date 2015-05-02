@@ -8,8 +8,8 @@
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <title>Watoto Children's Check-In</title>
         <!-- Common Meta Tags -->
-        <meta name="description" content="MOOC." />
-        <meta name="copyright" content="Copyright (c) MeridianSoftech 2012" />
+        <meta name="description" content="Watoto Children Checkin." />
+        <meta name="copyright" content="Copyright (c) Kedyr 2015" />
         <meta name="language" content="EN-GB" />
         <meta name="author" content="Kedyr">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,25 +31,4 @@
 
 
         <div id="top_container" class="container">
-
-            <nav id="Navigation" class="navbar navbar-default navbar-fixed-top">
-                <div class="container">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="<?php print site_url('generic/dash'); ?>">Watoto Children's Check-In</a>
-                    </div>
-                    <ul id="left_nav_menu" class="nav navbar-nav pull-right">
-                       <li class="<?php print isset($home_active) ? $home_active : ''; ?> bold"><a href="<?php print site_url('generic/home'); ?>">Home</a></li>
-                        <li class="<?php print isset($checkinReg_active) ? $checkinReg_active : ''; ?> bold"><a href="<?php print site_url('generic/checkin/registered'); ?>">Registered In</a></li>
-                        <li class="<?php print isset($checkinNReg_active) ? $checkinNReg_active : ''; ?> bold"><a href="<?php print site_url('generic/checkin/unregistered'); ?>">UnRegistered In</a></li>
-                        <li class="<?php print isset($checkout_active) ? $checkout_active : ''; ?> bold"><a href="<?php print site_url('generic/checkout/card'); ?>">Check-Out</a></li>
-                        <li class="<?php print isset($register_active) ? $register_active : ''; ?> bold"><a href="<?php print site_url('generic/register/child'); ?>">Register Child</a></li>
-
-                    </ul>
-                </div>
-            </nav>
+         <?php $this->load->view('section/navigation'); ?>

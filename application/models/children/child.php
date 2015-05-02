@@ -54,6 +54,7 @@ class Child extends CI_Model {
         $this->db->select(TBL_CHILDREN.'.*')->from(TBL_CHILDREN)->join(TBL_CHILD_HANDLER_RELATIONSHIP, TBL_CHILD_HANDLER_RELATIONSHIP.'.'.COL_CHILD_ID.' = '.TBL_CHILDREN.'.'.COL_CHILD_ID);
         $this->db->where(TBL_CHILDREN.'.'.COL_CHILD_ID.' <> '.$childId);
          $this->db->where_in(TBL_CHILD_HANDLER_RELATIONSHIP.'.'.COL_HANDLER_ID,$handler_ids);
+         $this->db->group_by(COL_CHILD_ID);
          $query = $this->db->get();
         return $this->DbWrapper->summarize_get_and_select($query);
     }

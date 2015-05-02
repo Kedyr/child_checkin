@@ -25,7 +25,7 @@ body {
  a.navbar-brand {
     color: #FFF;
     text-transform: uppercase;
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 900;
     margin-top: 20px;
 }
@@ -59,6 +59,12 @@ label {
     padding:10px;
     font-size: 15px;
 }
+
+#Navigation .dropdown-menu a {
+    color: #000;
+    text-transform: capitalize;
+}
+.navbar-nav > li > a {  padding:15px 5px;}
 
 .autocomplete-suggestions .even_suggestion{padding: 5px;background-color: rgb(249, 248, 243);}
 .autocomplete-suggestions .odd_suggestion{padding: 5px;}
