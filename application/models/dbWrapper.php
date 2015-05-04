@@ -7,7 +7,7 @@ if (!defined('BASEPATH'))
  * @author Kedyr <deniskedyr@gmail.com>
  */
 
-class DbWrapper extends CI_Model {
+class Dbwrapper extends CI_Model {
 
     //todo amplify error reporting
     public function __construct() {

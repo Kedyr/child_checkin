@@ -36,23 +36,23 @@ class RollCall extends CI_Model {
     }
 
     function checkIfChildCheckedIn($childId) {
-        return $this->DbWrapper->minedb_check_if_record_exists(TBL_CHECKINOUT, array(COL_CHILD_ID => $childId, COL_STATUS => "IN"));
+        return $this->Dbwrapper->minedb_check_if_record_exists(TBL_CHECKINOUT, array(COL_CHILD_ID => $childId, COL_STATUS => "IN"));
     }
 
     function get($checkinId) {
         $query = $this->db->get_where(TBL_CHECKINOUT, array(COL_CHECKIN_ID => $checkinId));
-        return $this->DbWrapper->summarize_get_and_select($query, TRUE);
+        return $this->Dbwrapper->summarize_get_and_select($query, TRUE);
     }
 
     function getSingleRollCallAttribute($checkin_id, $column) {
         $query = $this->db->get_where(TBL_CHECKINOUT, array(COL_CHECKIN_ID => $checkin_id));
-        return $this->DbWrapper->summarize_get_and_select($query, TRUE, $column);
+        return $this->Dbwrapper->summarize_get_and_select($query, TRUE, $column);
     }
 
     function getCardNumbersForCheckedInChildren() {
         $this->db->select(COL_CHECK_IN_UnderId . ' , ' . COL_CHECK_IN_NUMBER)->from(TBL_CHECKINOUT);
         $query = $this->db->where(COL_STATUS, 'IN')->group_by(COL_CHECK_IN_NUMBER)->get();
-        $results = $this->DbWrapper->summarize_get_and_select($query);
+        $results = $this->Dbwrapper->summarize_get_and_select($query);
         $cards = array();
         foreach ($results as $child) {
             $cards[$child[COL_CHECK_IN_UnderId]] = $child[COL_CHECK_IN_NUMBER];
@@ -62,17 +62,17 @@ class RollCall extends CI_Model {
 
     function getCheckedInSiblingsWithCheckinId($checkinId) {
         $query = $this->db->select(TBL_CHILDREN . '.*')->from(TBL_CHILDREN)->join(TBL_CHECKINOUT, TBL_CHECKINOUT . '.' . COL_CHILD_ID . ' = ' . TBL_CHILDREN . '.' . COL_CHILD_ID)->where(TBL_CHECKINOUT . '.' . COL_CHECK_IN_UnderId, $checkinId)->get();
-        return $this->DbWrapper->summarize_get_and_select($query);
+        return $this->Dbwrapper->summarize_get_and_select($query);
     }
 
     function getCheckedInHandlerWithCheckinId($checkinId) {
         $query = $this->db->select(TBL_HANDLERS . '.*')->from(TBL_HANDLERS)->join(TBL_CHECKINOUT, TBL_CHECKINOUT . '.' . COL_HANDLER_ID . ' = ' . TBL_HANDLERS . '.' . COL_HANDLER_ID)->where(TBL_CHECKINOUT . '.' . COL_CHECK_IN_UnderId, $checkinId)->group_by(COL_HANDLER_ID)->get();
-        return $this->DbWrapper->summarize_get_and_select($query);
+        return $this->Dbwrapper->summarize_get_and_select($query);
     }
 
     function getUnregisteredCheckedInHandlerWithCheckinId($checkin_id) {
         $query = $this->db->select(COL_HANDLER_NAME)->from(TBL_CHECKINOUT)->where(COL_CHECK_IN_UnderId, $checkin_id)->get();
-        return $this->DbWrapper->summarize_get_and_select($query, TRUE, COL_HANDLER_NAME);
+        return $this->Dbwrapper->summarize_get_and_select($query, TRUE, COL_HANDLER_NAME);
     }
 
     function getNoChildrenCheckedIn($checkinId) {
@@ -81,7 +81,7 @@ class RollCall extends CI_Model {
 
     function getSiblingCountCheckedIn($checkIn_id) {
         $query = $this->db->select(COL_SIBLING_COUNT)->from(TBL_CHECKINOUT)->where(COL_CHECKIN_ID, $checkIn_id)->get();
-        return $this->DbWrapper->summarize_get_and_select($query, TRUE, COL_SIBLING_COUNT);
+        return $this->Dbwrapper->summarize_get_and_select($query, TRUE, COL_SIBLING_COUNT);
     }
     
     function chekoutSibling($childId,$checkin_id){
@@ -89,11 +89,11 @@ class RollCall extends CI_Model {
     }
     
     function completeCheckOut($checkinId){
-        return $this->db->update(TBL_CHECKINOUT,array(COL_STATUS=>'OUT'),array(COL_CHECK_IN_UnderId=>$checkinId));
+        return $this->db->update(TBL_CHECKINOUT,array(COL_STATUS=>'OUT',COL_TIME_OUT=>  getCurrentTime()),array(COL_CHECK_IN_UnderId=>$checkinId));
     }
     
     function checkIfCheckinNumberGivenOut($card_num){
-        return $this->DbWrapper->minedb_check_if_record_exists(TBL_CHECKINOUT,array(COL_STATUS=>"IN",COL_CHECK_IN_NUMBER=>$card_num));
+        return $this->Dbwrapper->minedb_check_if_record_exists(TBL_CHECKINOUT,array(COL_STATUS=>"IN",COL_CHECK_IN_NUMBER=>$card_num));
     }
 
 }

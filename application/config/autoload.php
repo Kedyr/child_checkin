@@ -109,7 +109,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array('DbWrapper');
+$autoload['model'] = array('Dbwrapper');
 
 
 /* End of file autoload.php */

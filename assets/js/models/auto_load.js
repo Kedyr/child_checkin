@@ -67,10 +67,8 @@ define(function() {
             var url = window.location.href;
 
             var site_url;
-            if (host === "172.23.1.118")
-                return protocol + "//" + "172.23.1.140:1236/revisionaidline/survey/";
             if (host === "localhost")
-                return protocol + "//" + host_name + "/revisionaidline/survey/";
+                return protocol + "//" + host_name + "/childrencheckin/";
         },
         verifyEmail: function(email_id) {
             var email = $('#' + email_id).val();

@@ -15,7 +15,7 @@ class Migration extends Admin_secure {
         $this->db->from('movers_shakers__');
         $query = $this->db->get();
 
-        $rsults = $this->DbWrapper->summarize_get_and_select($query);
+        $rsults = $this->Dbwrapper->summarize_get_and_select($query);
         $response = array();
         foreach ($rsults as $result) {
             $name = $result['NAME'];
@@ -41,7 +41,7 @@ class Migration extends Admin_secure {
       $this->db->select("childId , " . COL_CHILD_NAME);
       $this->db->from(TBL_CHILDREN);
       $query = $this->db->get();
-      $rsults = $this->DbWrapper->summarize_get_and_select($query);
+      $rsults = $this->Dbwrapper->summarize_get_and_select($query);
       foreach ($rsults as $result) {
       $this->db->update('movers_shakers', array('childId' => $result['childId']), array('NAME' => $result[COL_CHILD_NAME]));
       }
@@ -52,7 +52,7 @@ class Migration extends Admin_secure {
         $this->db->from('amazingclass');
         $query = $this->db->get();
 
-        $rsults = $this->DbWrapper->summarize_get_and_select($query);
+        $rsults = $this->Dbwrapper->summarize_get_and_select($query);
         $response = array();
         foreach ($rsults as $result) {
             $datam = array();
