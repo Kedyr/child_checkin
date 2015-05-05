@@ -124,7 +124,7 @@ class CheckIn extends Admin_secure {
         $data[COL_SERVICE_ID] = NULL;
 
         if ($this->RollCall->checkIfCheckinNumberGivenOut($card_num)) {
-            print print json_encode(array('success' => 0, 'message' => 'Selected Card number has already ben given out!'));
+            print json_encode(array('success' => 0, 'message' => 'Selected Card number has already ben given out!'));
             return;
         }
 

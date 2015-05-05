@@ -25,7 +25,7 @@
                 </div>
                 <div class="col-md-4">
                     <h4 class="result2 childResultstitle">No. of Children </h4> 
-                    <input required="required" class="form-control big_form" type="number" value="0" name="siblings" id="siblings" />
+                    <input required="required" class="form-control big_form" type="number" value="" name="siblings" id="siblings" />
                 </div>
                 <div class="col-md-4">
                     <h4 class="result3 childResultstitle">Handlers Name</h4>
@@ -64,11 +64,9 @@
             $('#check_in').ajaxSubmit({
                 success: function(response) {
                     Auto_load.drawServerResponse(response, true, 'check_in');
-                    if (response.success){
                         $('#feedback').fadeTo(3000, 0.5);
                         $('#feedback').fadeTo("fast", 0);
                         $('#siblings').val(0);
-                     }
                 },
                 dataType: 'json'
             });
