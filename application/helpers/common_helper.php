@@ -143,3 +143,16 @@ function getCurrentTime(){
      date_default_timezone_set('Africa/Kampala');
     return  date('Y-m-d H:i:s');
 }
+
+
+function getStartEndDateFromRange($daterange) {
+    date_default_timezone_set('Africa/Nairobi');
+    if(strlen($daterange) < 10)
+        return array('start'=>NULL,'end'=>NULL);
+    $duration = explode('-', $daterange);
+    $datest = getTime($duration[0]);
+    $dateet = getTime($duration[1]);
+    $start_time = $datest->format('Y-m-d');
+    $end_date = $dateet->format('Y-m-d');
+    return array('start'=>$start_time,'end'=>$end_date);
+}

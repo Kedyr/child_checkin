@@ -51,41 +51,47 @@
     </div>
 </div>
 <div class="row" style="margin-top:10px">
-    <div class="col-md-3"> <button type="button" id="completeCheckin" class="btn btn-lg btn-blac">Check-Out</button></div>
-    <div class="col-md-4"></div>
+    <div class="col-md-12"> 
+        <div class="col-md-3"><button type="button" id="completeCheckin" class="btn btn-lg btn-blac">Check-Out</button></div>
+        <div class="col-md-3"> Checkout All children <input id="checkout_all" name="all" type="checkbox" /></div>
+    </div>
 </div>
 
 <script type="text/javascript">
-                        var checkin_id = '<?php print isset($checkin_id) ? $checkin_id : ''; ?>';
-                        $('#completeCheckin').click(function() {
-                            //var selected= [];
-                            var count = 0;
-                            $("#tblForm input:checkbox:not(:checked)").each(function() {
-                                count++;
-                                console.log("jjj")
-                            });
-                            if (count > 0) {
-                                alert("Please check-out all the children before completing checkout");
-                                return;
-                            } else
-                                completeCheckOut();
-                        });
+var checkin_id = '<?php print isset($checkin_id) ? $checkin_id : ''; ?>';
 
-                        function completeCheckOut() {
-                            $.post('<?php print site_url('generic/checkout/completeCheckout'); ?>', {'checkin_id': checkin_id}, function(response) {
-                                $('#selction-ajax').html(response);
-                                location.reload();
-                                
-                            });
-                        }
+$('#checkout_all').click(function(){ 
+    $("#tblForm input:checkbox").each(function(){ $(this).attr('checked','checked'); });
+});
 
-                        function checkInOut(checkinId, id) {
-                            if (document.getElementById(id).checked)
-                                document.getElementById(id).checked = false;
-                            else {
-                                document.getElementById(id).checked = true;
-                                $.post('<?php print site_url('generic/checkout/checkoutSibling') ?>', {'checkin_id': checkinId, 'childId': id}, function(response) {
-                                });
-                            }
-                        }
+$('#completeCheckin').click(function() {
+    //var selected= [];
+    var count = 0;
+    $("#tblForm input:checkbox:not(:checked)").each(function() {
+        count++;
+    });
+    if (count > 0) {
+        alert("Please check-out all the children before completing checkout");
+        return;
+    } else
+        completeCheckOut();
+});
+
+function completeCheckOut() {
+    $.post('<?php print site_url('generic/checkout/completeCheckout'); ?>', {'checkin_id': checkin_id}, function(response) {
+        $('#selction-ajax').html(response);
+        location.reload();
+
+    });
+}
+
+function checkInOut(checkinId, id) {
+    if (document.getElementById(id).checked)
+        document.getElementById(id).checked = false;
+    else {
+        document.getElementById(id).checked = true;
+        $.post('<?php print site_url('generic/checkout/checkoutSibling') ?>', {'checkin_id': checkinId, 'childId': id}, function(response) {
+        });
+    }
+}
 </script>

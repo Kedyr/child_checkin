@@ -12,7 +12,7 @@
         <div class="page-header">
             <div class="row">
                 <div class="col-md-12">
-                    <h3>Child Registration <small><?php print isset($action) ? $action : ''; ?></small></h3>            
+                    <h3>Child Registration <small><?php print anchor(site_url('account/handlers/edit/'.$handler_id), isset($handler_name) ? $handler_name.' children' : ''); ?></small></h3>            
                 </div>
             </div>
         </div>
@@ -30,7 +30,14 @@
                     <div id="form_Details">
                         <?php
                         echo form_open(site_url('account/childAccounts/saveChildDetails/'), array('id' => 'create_child'));
+                        if (isset($handler_id)): ?>
+                            <label>Relationship with Child</label>
+                            <?php
+                            $relationship = array('Brother' => 'Brother', 'Sister' => 'Sister', 'Uncle' => 'Uncle', 'Mother' => 'Mother', 'Father' => 'Father', 'Neighbour' => 'Neighbour', 'Auntie' => 'Auntie', 'Other' => 'Other');
+                            print form_dropdown('relationship', $relationship,null, 'class="form-control"');
+                        endif;
                         $this->load->view('accounts/register_source');
+                        print form_hidden('handler_id',isset($handler_id)?$handler_id:'');
                         print form_close();
                         ?>
                     </div>

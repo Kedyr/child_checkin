@@ -26,5 +26,10 @@ class Admin_secure extends CI_Controller {
         date_default_timezone_set('Africa/Kampala');
         
     }
-
+    
+    function error(){
+        $this->load->view('error_page');
+    }
+    
+   
 }

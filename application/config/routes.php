@@ -46,5 +46,6 @@ $route['login'] = "accountControllers/login";
 $route['logout'] = "accountControllers/logout";
 $route['account/(:any)'] = "accountControllers/$1";
 $route['generic/(:any)'] = "genericControllers/$1";
+$route['reports/(:any)'] = "reportsControllers/$1";
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

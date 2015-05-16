@@ -1,69 +1,45 @@
+<?php $this->load->view('section/navbar_minus_require'); ?>
 <?php print css_asset('datatables/dataTables.bootstrap.css'); ?>
 
-<div class="modal-dialog modal-lg">
-    <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <h4 class="modal-title" id="myModalLabel"><?php print $child_name; ?> Handlers<a class="anchorjs-link" href="#myModalLabel"><span class="anchorjs-icon"></span></a></h4>
-        </div>
-        <div class="modal-body">
-            <div  class="table-responsive">
-                <table id="preport" class="table table-striped table-hover table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Residence</th>
-                            <th>Work Place</th>
-                            <th>Phone-No</th>
-                            <th>Email Address</th>
-                            <th>Relation</th>
-                            <th>Other Church</th>
-                            <th>Cell No.</th>
-                            <th>Cell Leader</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($handlers as $handler) { ?>
-                            <tr>
-                                <td><?php print $handler[COL_HANDLER_NAME]; ?></td>
-                                <td><?php print $handler[COL_RESIDENCE]; ?></td>
-                                <td><?php print $handler[COL_WORK_PLACE]; ?></td>
-                                <td><?php print $handler[COL_PHONENO]; ?></td>
-                                <td><?php print $handler[COL_EMAIL]; ?></td>
-                                <td><?php print $handler[COL_RELATIONSHIP]; ?></td>
-                                 <td><?php print $handler[COL_OTHER_CHURCH]; ?></td>
-                                <th><?php print $handler[COL_CELL_NO]; ?></th>
-                                <td><?php print $handler[COL_CELL_LEADER_NAME]; ?></td>
-                            </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
+<div style="display:none;" class="modal fade in" id="parentsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+</div>
+<div style="display:none;" class="modal fade in" id="childrenModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+</div>
+<div id="bodyContent" class="row">
+    <div class="col-md-12">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Parents Report</h3>            
+                </div>
             </div>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-md btn-success " data-dismiss="modal">Close</button>
+        <div id="contentArea">
+            <?php $this->load->view('reports/parents_source', array('handlers' => $handlers,'relation'=>FALSE)); ?>
         </div>
+    </div>
+</div>
 
-    </div><!-- /.modal-content -->
-</div><!-- /.modal-dialog -->
+
+<?php $this->load->view('section/footer'); ?>
+<?php print js_asset("vendor/jquery/jquery.dataTables.js"); ?>
+<?php print js_asset("vendor/jquery/dataTables.bootstrap.js"); ?>
 <script type = "text/Javascript" >
-    require.config({
-        paths: {
-            dataTables: "vendor/jquery/jquery.dataTables",
-            bootstrapDataTables: "vendor/jquery/dataTables.bootstrap"
-        },
-        shim: {
-            dataTables: {deps: ["jquery"]},
-            bootstrapDataTables: {deps: ["jquery", "dataTables"]}
-        }
+    $('#preport').dataTable({
+        "bPaginate": true,
+        "bSort": true,
+        "bInfo": true,
+        "scrollX": true,
+        "bFilter": true,
     });
-    require(["dataTables", "bootstrapDataTables"], function(dataTable) {
-        $('#preport').dataTable({
-            "bPaginate": true,
-            "bSort": true,
-            "bInfo": true,
-            "scrollX": true,
-            "bFilter": true,
-        });
-    });
+    function showChildren(handlerId) {
+        $("#childrenModal").load("<?php print site_url('reports/children/getHandlerChildren'); ?>" + "/" + handlerId);
+        $('#childrenModal').modal({'show': true});
+        $('#parentsModal').modal('hide');
+    }
+    function showParents(childId) {
+        $("#parentsModal").load("<?php print site_url('reports/children/getChildHandlers'); ?>" + "/" + childId);
+        $('#parentsModal').modal({'show': true});
+        $('#childrenModal').modal('hide');
+    }
 </script>

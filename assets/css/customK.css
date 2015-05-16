@@ -20,7 +20,7 @@ body {
     width: 100%;
     /* Set the fixed height of the footer here */
     height: 60px;
-    background-color: #f5f5f5;
+    background-color: #646464;
 }
  a.navbar-brand {
     color: #FFF;
@@ -39,7 +39,7 @@ body {
 #left_nav_menu li.active a{color:#000;}
 #left_nav_menu li:hover{background-color: #FFF;}
 #left_nav_menu li a:hover{color: #000;}
-#Navigation {background-color: #000;}
+#Navigation {background-color: #6E2049;}
 .page-header{margin:20px 0px 20px;}
 label {
     margin-top: 10px;
@@ -84,3 +84,9 @@ input[type=checkbox]{transform:scale(1.5);-webkit-transform:scale(1.5);}
 .currentService{color:#DA4631;font-size: 16px;font-weight: bold;}
 
 #bodyContent{margin-bottom: 10px;}
+.footer_text{margin-top:30px;color:#fff;}
+.copyrit{margin-top:40px; font-size:9px;color:#fff;}
+#Navigation img{float:left;}
+#Navigation .navbar-brand{margin-left: -270px;}
+.colorHeadings{color: #009654;font-weight: bold;}
+.searchlable{background-color: #009654;color: #fff;font-weight: bold;padding: 7px;}

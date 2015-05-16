@@ -22,3 +22,10 @@ function return_feedback($success, $message, $previous = false) {
 	        return "<div style='margin:15px 0px 15px 0px;' ><a onclick='history.back(-1);' class='btn_link' href='#'>Go back to previous page</a></div>";
 	}
 }
+
+
+function return_error_message($error_head, $error_message) {
+    $ci = &get_instance();
+    $ci->session->set_flashdata(array('error_head' => $error_head, 'error_message' => $error_message));
+    redirect('admin_secure/error');
+}

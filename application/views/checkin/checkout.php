@@ -15,7 +15,7 @@
         </div>
         <div id="contentArea">
             <div style="position: relative; height: 80px;">
-                <input placeholder="searh card numbers" type="text" name="children" id="autocomplete-ajax" class="form-control searchForm"  style="position: absolute; z-index: 2; background: transparent;"/>
+                <input placeholder="search card numbers" type="text" name="children" id="autocomplete-ajax" class="form-control searchForm"  style="position: absolute; z-index: 2; background: transparent;"/>
                 <input type="text" name="children" id="autocomplete-ajax-x" disabled="disabled" style="display:none; color: #CCC; position: absolute; background: transparent; z-index: 1;"/>
             </div>
             <h4>Search results</h4>
