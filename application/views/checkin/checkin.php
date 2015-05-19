@@ -30,7 +30,6 @@
 </div>
 <?php $this->load->view('section/footer'); ?>
 <?php print js_asset('vendor/jquery/jquery.autocomplete.js'); ?>
-<?php print js_asset('vendor/jquery/countries.js'); ?>
 <script type="text/javascript">
     var children = '<?php print isset($children) ? $children : ''; ?>';
     children = JSON.parse(children);
@@ -40,14 +39,12 @@
 
 
     $('#autocomplete-ajax').autocomplete({
-        // serviceUrl: '/autosuggest/service/url',
         lookup: childrenArray,
         lookupFilter: function(suggestion, originalQuery, queryLowerCase) {
             var re = new RegExp('\\b' + $.Autocomplete.utils.escapeRegExChars(queryLowerCase), 'gi');
             return re.test(suggestion.value);
         },
         onSelect: function(suggestion) {
-            //$('#selction-ajax').html('You selected: ' + suggestion.value + ', ' + suggestion.data);
             $.post("<?php print site_url('generic/checkin/getChildFamily') ?>", {'childId': suggestion.data}, function(response) {
                 $('#selction-ajax').html(response);
                 $('#autocomplete-ajax').val("");

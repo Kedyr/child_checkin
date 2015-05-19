@@ -69,7 +69,8 @@ class CheckIn extends Admin_secure {
         $checkin_id = $this->input->post('checkin_id');
         $handler_name = $this->input->post('handler');
         $data[COL_HANDLER_NAME] = $handler_name;
-        $data[COL_CHECK_IN_NUMBER] = $this->input->post('cardNo');
+        $card_num = $this->input->post('cardNo');
+        $data[COL_CHECK_IN_NUMBER] = $card_num;
         $data[COL_SIBLING_COUNT] = $this->input->post('siblingNo');
         $data[COL_CHECK_IN_UnderId] = $checkin_id;
          $data[COL_STATUS] = "IN";
@@ -79,10 +80,14 @@ class CheckIn extends Admin_secure {
         if (is_numeric($handler_id))
             $data[COL_HANDLER_ID] = $handler_id;
 
-        if ($this->RollCall->updateChildrenCheckinWIthHandlerDetails($data, $checkin_id))
-            print return_feedback(true, 'Children succefully checked-In ');
-        else
-            print return_feedback(false, 'An error occured when completing the chek-IN');
+        if ($this->RollCall->checkIfCheckinNumberGivenOut($card_num)) {
+            print json_encode(array('success' => 0, 'message' =>return_feedback(false, 'Selected Card number has already been used!')));
+        }else{
+            if ($this->RollCall->updateChildrenCheckinWIthHandlerDetails($data, $checkin_id))
+                print json_encode(array('success'=>1,'message'=>return_feedback(true, 'Children succefully checked-In ')));
+            else
+                print json_encode(array('success'=>0,'message'=>return_feedback(false, 'An error occured when completing child check-in')));
+        }
     }
 
     function checkinSibling() {
@@ -124,7 +129,7 @@ class CheckIn extends Admin_secure {
         $data[COL_SERVICE_ID] = NULL;
 
         if ($this->RollCall->checkIfCheckinNumberGivenOut($card_num)) {
-            print json_encode(array('success' => 0, 'message' => 'Selected Card number has already ben given out!'));
+            print json_encode(array('success' => 0, 'message' => 'Selected Card number has already been used!'));
             return;
         }
 

@@ -23,12 +23,12 @@
                         <tr> <td><span class="childName"><?php print isset($sibling[COL_CHILD_NAME]) ? $sibling[COL_CHILD_NAME] : ''; ?> </span></td> </tr>
                         <tr> <td>Gender</td><td><?php print isset($sibling[COL_SEX]) ? $sibling[COL_SEX] : ''; ?></td> </tr>
                         <tr> <td>Age</td><td><?php print isset($sibling[COL_DOB]) ? calculateAge($sibling[COL_DOB]) . ' years' : ''; ?></td></tr>
-                        <tr class="checkDo" onClick="checkInOut(<?php print $checkin_id; ?>, 'c_<?php print $sibling_id; ?>');"><td>Check-Out</td> <td><input id="c_<?php print $sibling_id; ?>" type="checkbox" /></td>
+                        <tr class="checkDo" ><td onClick="checkInOut(<?php print $checkin_id; ?>, 'c_<?php print $sibling_id; ?>');" >Check-Out</td> <td><input id="c_<?php print $sibling_id; ?>" class='checkboxd' type="checkbox" /></td>
                         </tr>
                     </tbody>
                 </table>  
             </form>
-<?php } ?>
+        <?php } ?>
     </div>
     <div class="col-md-4">
         <h4 class="result3 childResultstitle">Parents/Handlers</h4>
@@ -53,45 +53,59 @@
 <div class="row" style="margin-top:10px">
     <div class="col-md-12"> 
         <div class="col-md-3"><button type="button" id="completeCheckin" class="btn btn-lg btn-blac">Check-Out</button></div>
-        <div class="col-md-3"> Checkout All children <input id="checkout_all" name="all" type="checkbox" /></div>
+        <input style="display:none" id="checkout_all" name="all" type="checkbox" />
+        <div class="col-md-8 checkoutarea" onClick="toggleAllBoxes();"> 
+
+            <span> Click anywhere in this area to toggle checkout status of all siblings  </span>
+        </div>
     </div>
 </div>
 
 <script type="text/javascript">
 var checkin_id = '<?php print isset($checkin_id) ? $checkin_id : ''; ?>';
 
-$('#checkout_all').click(function(){ 
-    $("#tblForm input:checkbox").each(function(){ $(this).attr('checked','checked'); });
-});
-
 $('#completeCheckin').click(function() {
     //var selected= [];
     var count = 0;
-    $("#tblForm input:checkbox:not(:checked)").each(function() {
-        count++;
+    $('.checkboxd').each(function() {
+        if (!this.checked)
+            count++;
     });
     if (count > 0) {
         alert("Please check-out all the children before completing checkout");
+        count = 0;
         return;
     } else
         completeCheckOut();
 });
 
 function completeCheckOut() {
+    var cardNoIndex = checkinIds[checkin_id];
+    cardNumberArray[cardNoIndex] = {value: "", data: ""}; //reduce the number of listed cards
     $.post('<?php print site_url('generic/checkout/completeCheckout'); ?>', {'checkin_id': checkin_id}, function(response) {
         $('#selction-ajax').html(response);
-        location.reload();
-
+        //location.reload();
     });
+}
+
+function toggleAllBoxes() {
+    if (document.getElementById("checkout_all").checked) {
+        document.getElementById("checkout_all").checked = false;
+        $('.checkboxd').each(function() {
+            this.checked = false;
+        });
+    } else {
+        document.getElementById("checkout_all").checked = true;
+        $('.checkboxd').each(function() {
+            this.checked = true;
+        });
+    }
 }
 
 function checkInOut(checkinId, id) {
     if (document.getElementById(id).checked)
         document.getElementById(id).checked = false;
-    else {
+    else
         document.getElementById(id).checked = true;
-        $.post('<?php print site_url('generic/checkout/checkoutSibling') ?>', {'checkin_id': checkinId, 'childId': id}, function(response) {
-        });
-    }
 }
 </script>

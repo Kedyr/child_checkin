@@ -58,6 +58,7 @@ label {
     background-color: rgb(234, 234, 233);
     padding:10px;
     font-size: 15px;
+    cursor: pointer;
 }
 
 #Navigation .dropdown-menu a {
@@ -90,3 +91,4 @@ input[type=checkbox]{transform:scale(1.5);-webkit-transform:scale(1.5);}
 #Navigation .navbar-brand{margin-left: -270px;}
 .colorHeadings{color: #009654;font-weight: bold;}
 .searchlable{background-color: #009654;color: #fff;font-weight: bold;padding: 7px;}
+.checkoutarea{background-color: rgb(77, 167, 5);color: rgb(255, 255, 255);padding: 20px;cursor:pointer;}

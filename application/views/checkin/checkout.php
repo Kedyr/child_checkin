@@ -30,11 +30,13 @@
 </div>
 <?php $this->load->view('section/footer'); ?>
 <?php print js_asset('vendor/jquery/jquery.autocomplete.js'); ?>
-<?php print js_asset('vendor/jquery/countries.js'); ?>
 <script type="text/javascript">
     var cardNumbers = '<?php print isset($cards) ? $cards : ''; ?>';
     cardNumbers = JSON.parse(cardNumbers);
+    var checkinIds = Array();
+    var cardNumber_count = 0;
     var cardNumberArray = $.map(cardNumbers, function(value, key) {
+        checkinIds[key] = cardNumber_count++;
         return {value: value, data: key};
     });
 
