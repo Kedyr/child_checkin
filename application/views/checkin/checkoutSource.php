@@ -82,10 +82,23 @@ $('#completeCheckin').click(function() {
 function completeCheckOut() {
     var cardNoIndex = checkinIds[checkin_id];
     cardNumberArray[cardNoIndex] = {value: "", data: ""}; //reduce the number of listed cards
+    
+    $.ajax({
+        url: '<?php print site_url('generic/checkout/completeCheckout'); ?>',
+        type:'POST',
+        data:{'checkin_id': checkin_id},
+        beforeSend:function(){ //to increase the checkout process, its assumed that all resuests sent will automatically checkout
+            $('#selction-ajax').html("<div class='alert alert-success'><button class='close' data-dismiss='alert' type='button'>×</button>Successful Checkout of Child/children</div>");
+        },
+        success: function(response) {
+           
+        },
+   });
+/*
     $.post('<?php print site_url('generic/checkout/completeCheckout'); ?>', {'checkin_id': checkin_id}, function(response) {
         $('#selction-ajax').html(response);
         //location.reload();
-    });
+    }); */
 }
 
 function toggleAllBoxes() {

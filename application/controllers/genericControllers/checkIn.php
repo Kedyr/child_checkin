@@ -58,7 +58,7 @@ class CheckIn extends Admin_secure {
         $data[COL_SERVICE_ID] = NULL;
         $data[COL_TIME_IN] = getCurrentTime();
         $data[COL_COMMENTS] = NULL;
-        $data[COL_STATUS] = "INCOMPLETE";
+        $data[COL_STATUS] = $this->config->item('checkin_status_incomplete') ;
         $data[COL_CHECK_IN_UnderId] = ($checkin_id == 0) ? NULL : $checkin_id;
         return $this->RollCall->checkin($data);
     }

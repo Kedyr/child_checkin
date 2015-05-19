@@ -85,11 +85,11 @@ class RollCall extends CI_Model {
     }
     
     function chekoutSibling($childId,$checkin_id){
-        return $this->db->update(TBL_CHECKINOUT,array(COL_STATUS=>'OUT'),array(COL_CHECK_IN_UnderId=>$checkin_id,COL_CHILD_ID=>$childId));
+        return $this->db->update(TBL_CHECKINOUT,array(COL_STATUS=>$this->config->item('checkin_status_out')),array(COL_CHECK_IN_UnderId=>$checkin_id,COL_CHILD_ID=>$childId));
     }
     
     function completeCheckOut($checkinId){
-        return $this->db->update(TBL_CHECKINOUT,array(COL_STATUS=>'OUT',COL_TIME_OUT=>  getCurrentTime()),array(COL_CHECK_IN_UnderId=>$checkinId));
+        return $this->db->update(TBL_CHECKINOUT,array(COL_STATUS=>$this->config->item('checkin_status_out'),COL_TIME_OUT=>  getCurrentTime()),array(COL_CHECK_IN_UnderId=>$checkinId));
     }
     
     function checkIfCheckinNumberGivenOut($card_num){

@@ -41,7 +41,7 @@ class CheckOut extends Admin_secure {
         $checkin_id = $this->input->post('checkin_id');
         $this->load->model('checkinout/RollCall');
         if ($this->RollCall->completeCheckOut($checkin_id))
-            print return_feedback(true, 'Successfully Checkout Child/children');
+            print return_feedback(true, 'Successful Checkout of Child/children');
         else
             print return_feedback(false, 'An error occured when cheking out the child');
     }

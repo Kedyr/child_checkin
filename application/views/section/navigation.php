@@ -21,8 +21,7 @@
                             <li class="dropdown <?php print isset($reports_active) ? $reports_active : ''; ?> bold">
                                 <a  href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Reports<span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="<?php print site_url('reports/attendance/registered'); ?>">Attendance (Registered)</a></li>
-                                    <li><a href="<?php print site_url('reports/attendance/unregistered'); ?>">Attendance (UnRegistered)</a></li>
+                                    <li><a href="<?php print site_url('reports/attendance/'); ?>">Attendance</a></li>
                                      <li><a href="<?php print site_url('reports/children'); ?>">Children</a></li>
                                       <li><a href="<?php print site_url('reports/handlers'); ?>">Handlers</a></li>
                                 </ul>
