@@ -62,3 +62,23 @@ function sessionDestroy(){
     redirect_to_login_page();
 }
 
+
+function restrictUserFunctionlityBasedOnRole($role) {
+        if (!grant_access_to_role($role)) {
+            return_error_message("Access Denied","You don't have the rights to perform specified action");
+            return;
+        }
+ }
+ 
+ /**
+ * function determines wether a user has the right to access a particular *function
+ */
+function grant_access_to_role($role) {
+    $ci = & get_instance();
+    $roles = $ci->session->userdata('allowed_roles');
+    foreach($roles as $role_){
+        if ($role_ === $role)
+            return TRUE;
+    }
+    return FALSE;
+}

@@ -11,7 +11,7 @@
     <div class="col-md-8">
         <div class="page-header">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 ">
                     <h3>Child Registration <small><?php print isset($action) ? $action : ''; ?></small></h3>            
                 </div>
             </div>
@@ -19,8 +19,13 @@
         <div id="contentArea">
             <div class="row">
                 <?php if ($action == 'edit'): ?>
-                    <div class="col-md-3 pull-right"><?php print anchor(current_url() . "#", 'siblings', array('class' => 'btn btn-md btn-success ', 'onClick' => 'showSiblings(' . $child_id . ');')); ?>
+                    <div class="col-md-5 pull-right">
+                        <?php print anchor(current_url() . "#", 'siblings', array('class' => 'btn btn-md btn-success ', 'onClick' => 'showSiblings(' . $child_id . ');')); ?>
                         <?php print anchor(current_url() . "#", 'parents', array('class' => 'btn btn-md btn-success', 'onClick' => 'showParents(' . $child_id . ');')); ?>
+                        <?php 
+                          if(grant_access_to_role($this->config->item('role_admin')))
+                              print anchor(current_url() . "#", 'delete', array('class' => 'btn btn-md btn-danger', 'onClick' => 'deleteChild(' . $child_id . ');'));
+                        ?>
                     <?php endif; ?>
                 </div>
 

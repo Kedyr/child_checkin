@@ -10,13 +10,13 @@ require APPPATH . '/controllers/admin_secure.php';
 
 class Migration extends Admin_secure {
 
-    function migrateChildren() {
+   /* function migrateChildren() {
         $this->db->select('NAME , SEX , SCHOOL ,  CLASS , PLACEOFRESIDENCEC , DATEOlFBIRTH ,CELLNUMBER_,CELLLEADERSNAMEC');
-        $this->db->from('movers_shakers__');
+        $this->db->from('mover_shakers');
         $query = $this->db->get();
 
         $rsults = $this->Dbwrapper->summarize_get_and_select($query);
-        $response = array();
+        $response = array($rsults);
         foreach ($rsults as $result) {
             $name = $result['NAME'];
             $childData[COL_CHILD_NAME] = $result['NAME'];
@@ -27,29 +27,28 @@ class Migration extends Admin_secure {
             $childData[COL_CHURCH_MEMBERSHIP] = NULL;
             $childData[COL_SCHOOL] = $result['SCHOOL'];
             $childData[COL_SCHOOL_CLASS] = Null;
-            $childData[COL_CHURCH_CLASS] = "Heroes";
+            $childData[COL_CHURCH_CLASS] = "Movers & Shakers";
             $childData[COL_DOB] = $result['DATEOlFBIRTH'];
 
             $this->load->model('children/Child');
-            /*  if (!$this->Child->checkExists($name))
-              $child_id = $this->Child->insert($childData);
-              } */
+            if (!$this->Child->checkExists($name))
+                $child_id = $this->Child->insert($childData);
         }
     }
 
-    /* function mapChildrenIds() {
-      $this->db->select("childId , " . COL_CHILD_NAME);
-      $this->db->from(TBL_CHILDREN);
-      $query = $this->db->get();
-      $rsults = $this->Dbwrapper->summarize_get_and_select($query);
-      foreach ($rsults as $result) {
-      $this->db->update('movers_shakers', array('childId' => $result['childId']), array('NAME' => $result[COL_CHILD_NAME]));
-      }
-      } */
+    function mapChildrenIds() {
+        $this->db->select("childId , " . COL_CHILD_NAME);
+        $this->db->from(TBL_CHILDREN);
+        $query = $this->db->get();
+        $rsults = $this->Dbwrapper->summarize_get_and_select($query);
+        foreach ($rsults as $result) {
+            $this->db->update('mover_shakers', array('childId' => $result['childId']), array('NAME' => $result[COL_CHILD_NAME]));
+        }
+    }
 
     function migrate() {
         $this->db->select('childId ,FATHERSNAME , CONTACT , PLACEOFRESIDENCE , PLACEOFWORK , EMAILADDRESS ,CELLNO , CELLLEADERSNAME1 , CELLLEADERSCONTACT , MOTHERSNAME , CONTACT1 , PLACEOFRESIDENCE2 , PLACEOFWORK1 , EMAILADDRESS1 ,CELLNO1 , CELLLEADERSNAME2 , CELLLEADERSCONTACT1');
-        $this->db->from('amazingclass');
+        $this->db->from('mover_shakers');
         $query = $this->db->get();
 
         $rsults = $this->Dbwrapper->summarize_get_and_select($query);
@@ -71,7 +70,7 @@ class Migration extends Admin_secure {
             $data[COL_SEX] = 'Female';
             $child_id = $result['childId'];
 
-          //  $response = $this->insertHandler($datam, "Mother", $child_id, $phonem, $emailm, $namem);
+            $response = $this->insertHandler($datam, "Mother", $child_id, $phonem, $emailm, $namem);
 
             $email = $result['EMAILADDRESS'];
             $data[COL_EMAIL] = $email;
@@ -87,7 +86,7 @@ class Migration extends Admin_secure {
             $data[COL_CELL_LEADER_CONTACT] = $result['CELLLEADERSCONTACT'];
             $data[COL_SEX] = 'Male';
 
-            //$response = $this->insertHandler($data, "Father", $child_id, $phone, $email, $name);
+            $response = $this->insertHandler($data, "Father", $child_id, $phone, $email, $name);
         }
     }
 
@@ -98,18 +97,18 @@ class Migration extends Admin_secure {
             if ($this->Handler->checkExists($name))
                 $handler_id = $this->Handler->getSingleHandlerColumnAttribute($name, COL_HANDLER_NAME, COL_HANDLER_ID);
         }
-        //   if ($this->Handler->checkExistsByPhone($phone))
-        //      $handler_id = $this->Handler->getSingleHandlerColumnAttribute($phone, COL_PHONENO, COL_HANDLER_ID);
-        /*  if (strlen($email) > 2) {
-          if ($this->Handler->checkExistsByEmail($email))
-          $handler_id = $this->Handler->getSingleHandlerColumnAttribute($email, COL_EMAIL, COL_HANDLER_ID);
-          } */
+        if ($this->Handler->checkExistsByPhone($phone))
+            $handler_id = $this->Handler->getSingleHandlerColumnAttribute($phone, COL_PHONENO, COL_HANDLER_ID);
+        if (strlen($email) > 2) {
+            if ($this->Handler->checkExistsByEmail($email))
+                $handler_id = $this->Handler->getSingleHandlerColumnAttribute($email, COL_EMAIL, COL_HANDLER_ID);
+        }
         if (!$handler_id)
             $handler_id = $this->Handler->insert($data);
 
         if (!$this->Handler->relationShipExists($child_id, $handler_id))
             $this->Handler->insertHandlerChildRelationship($child_id, $handler_id, $relationship);
     }
-
+ */
 }
 

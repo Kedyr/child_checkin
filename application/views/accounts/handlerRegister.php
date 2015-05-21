@@ -23,7 +23,13 @@
         <div id="contentArea">
              <div class="row">
                 <?php if ($action == 'edit'): ?>
-                    <div class="col-md-3 pull-right"><?php $handler_id = isset($handler_id) ? $handler_id : ''; print anchor(current_url() . "#", 'children', array('class' => 'btn btn-md btn-success ', 'onClick' => 'showChildren(' . $handler_id . ');'));?> </div>
+                    <div class="col-md-5 pull-right">
+                        <?php $handler_id = isset($handler_id) ? $handler_id : ''; print anchor(current_url() . "#", 'children', array('class' => 'btn btn-md btn-success ', 'onClick' => 'showChildren(' . $handler_id . ');'));?> 
+                        <?php 
+                          if(grant_access_to_role($this->config->item('role_admin')))
+                              print anchor(current_url() . "#", 'delete', array('class' => 'btn btn-md btn-danger', 'onClick' => 'deleteHandler(' . $handler_id . ');'));
+                        ?>
+                    </div>
                     <?php endif; ?>
             <div class="col-md-7">
                 <span id="feedback"></span>
@@ -106,6 +112,15 @@
         $("#parentsModal").load("<?php print site_url('reports/children/getChildHandlers'); ?>" + "/" + childId);
         $('#parentsModal').modal({'show': true});
         $('#childrenModal').modal('hide');
+    }
+
+    function deleteHandler(handlerId){
+        if(confirm("Are you sure you want to delete this handler")){
+            $.post("<?php print site_url('account/handlers/delete'); ?>",{'handlerId':handlerId},function(response){
+                response = JSON.parse(response);
+                $('#form_Details').html(response.message);
+            });
+        }
     }
 </script>
 

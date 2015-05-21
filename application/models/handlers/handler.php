@@ -70,5 +70,10 @@ class Handler extends CI_Model {
         $query = $this->db->get();
         return $this->Dbwrapper->summarize_get_and_select($query);
     }
+    
+    function deleteHandler($handler_id){
+        return $this->db->delete(TBL_HANDLERS,array(COL_HANDLER_ID=>$handler_id));
+    }
+
 
 }

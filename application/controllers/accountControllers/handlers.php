@@ -109,5 +109,14 @@ class Handlers extends Admin_secure {
     function getHandlerId($name){
         return $this->Handler->getSingleHandlerColumnAttribute($name,COL_HANDLER_NAME,COL_HANDLER_ID);
     }
+    
+    function delete(){
+         $this->load->model('handlers/Handler');
+         $handlerId = $this->input->post('handlerId');
+         if($this->Handler->deleteHandler($handlerId))
+              print json_encode(array('success' => 1, 'message' =>return_feedback(true, 'Handler succefully deleted. Return to the handler report from '.anchor(site_url('reports/handlers'),'here'))));
+         else
+              print json_encode(array('success' => 0, 'message' =>return_feedback(false, 'An error occured when deleting the Child')));
+    }
 }
 

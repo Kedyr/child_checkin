@@ -86,4 +86,13 @@ class ChildAccounts extends Admin_secure {
     function getChildId($name){
         return $this->Child->getSingleVarChildColumnAttribute($name,COL_CHILD_NAME,COL_CHILD_ID);
     }
+    
+    function delete(){
+         $this->load->model('children/Child');
+         $child_id = $this->input->post('childId');
+         if($this->Child->deleteChild($child_id))
+              print json_encode(array('success' => 1, 'message' =>return_feedback(true, 'Child succefully deleted. Return to children report from '.anchor(site_url('reports/children'),'here'))));
+         else
+              print json_encode(array('success' => 0, 'message' =>return_feedback(false, 'An error occured when deleting the Child')));
+    }
 }

@@ -18,11 +18,11 @@ class Child extends CI_Model {
         $this->db->insert(TBL_CHILDREN, $childDetails);
         return $this->db->insert_id();
     }
-    
-    function edit($childData, $child_id){
-        return $this->db->update(TBL_CHILDREN,$childData,array(COL_CHILD_ID=>$child_id));
+
+    function edit($childData, $child_id) {
+        return $this->db->update(TBL_CHILDREN, $childData, array(COL_CHILD_ID => $child_id));
     }
-    
+
     function checkExists($name) {
         return $this->Dbwrapper->minedb_check_if_record_exists(TBL_CHILDREN, array(COL_CHILD_NAME => $name));
     }
@@ -61,21 +61,24 @@ class Child extends CI_Model {
         $query = $this->db->get();
         return $this->Dbwrapper->summarize_get_and_select($query);
     }
-    
-    
 
     function getAll() {
         $query = $this->db->get(TBL_CHILDREN);
         return $this->Dbwrapper->summarize_get_and_select($query);
     }
-    
+
     function getSingleChildColumnValue($child_id, $requested_column) {
         $query = $this->db->get_where(TBL_CHILDREN, array(COL_CHILD_ID => $child_id));
         return $this->Dbwrapper->summarize_get_and_select($query, TRUE, $requested_column);
     }
-    
-      function getSingleVarChildColumnAttribute($value, $column, $requested_column) {
+
+    function getSingleVarChildColumnAttribute($value, $column, $requested_column) {
         $query = $this->db->get_where(TBL_CHILDREN, array($column => $value));
         return $this->Dbwrapper->summarize_get_and_select($query, TRUE, $requested_column);
     }
+    
+    function deleteChild($child_id){
+        return $this->db->delete(TBL_CHILDREN,array(COL_CHILD_ID=>$child_id));
+    }
+
 }

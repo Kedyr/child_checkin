@@ -23,13 +23,21 @@ class Admin_secure extends CI_Controller {
         if (!is_logged_in()) {
             redirect('login');
         }
+        $roles = $this->session->userdata('allowed_roles');
+        $data['allowed_roles'] = $roles;
         date_default_timezone_set('Africa/Kampala');
-        
+        $this->load->vars($data);
     }
     
     function error(){
         $this->load->view('error_page');
     }
     
+    
+    function resetCheckins(){
+        restrictUserFunctionlityBasedOnRole($this->config->item('role_admin'));
+        $this->db->update(TBL_CHECKINOUT,array(COL_STATUS=>$this->config->item('checkin_status_out') ));
+        redirect('generic/home');
+    }
    
 }
