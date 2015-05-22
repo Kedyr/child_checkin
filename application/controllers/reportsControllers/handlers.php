@@ -15,4 +15,8 @@ class Handlers extends Admin_secure {
         $data['handlers'] = $this->Handler->getAll();
         $this->load->view('reports/parents', $data);
     }
+    
+    function editChildRelationship($child_id,$handler_id){
+        
+    }
 }

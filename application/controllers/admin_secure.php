@@ -36,7 +36,7 @@ class Admin_secure extends CI_Controller {
     
     function resetCheckins(){
         restrictUserFunctionlityBasedOnRole($this->config->item('role_admin'));
-        $this->db->update(TBL_CHECKINOUT,array(COL_STATUS=>$this->config->item('checkin_status_out') ));
+        $this->db->update(TBL_CHECKINOUT,array(COL_STATUS=>$this->config->item('checkin_status_force_out') ));
         redirect('generic/home');
     }
    

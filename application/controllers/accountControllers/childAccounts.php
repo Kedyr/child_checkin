@@ -64,7 +64,7 @@ class ChildAccounts extends Admin_secure {
         $this->load->model('children/Child');
         $this->load->model('handlers/Handler');
         if ($this->Child->checkExists(trim($name)))
-            return json_encode(array('message' => "Child with a similar name already exists.  view this child's details from ".anchor(site_url('account/childAccounts/edit/'.$this->getChildId($name)),'here'), 'success' => 0));
+            return json_encode(array('message' => "Child with a similar name already exists.  view this child's details from " . anchor(site_url('account/childAccounts/edit/' . $this->getChildId($name)), 'here'), 'success' => 0));
         else {
             $child_id = $this->Child->insert($childData);
             if (is_numeric($handler_id))
@@ -77,22 +77,24 @@ class ChildAccounts extends Admin_secure {
         $this->load->model('children/Child');
         if (trim($old_name) != trim($new_name)) {
             if ($this->Child->checkExists(trim($new_name)))
-                return json_encode(array('message' => "Child with a similar name already exists. view this child's details from ".anchor(site_url('account/childAccounts/edit/'.$this->getChildId($new_name)),'here'), 'success' => 0));
+                return json_encode(array('message' => "Child with a similar name already exists. view this child's details from " . anchor(site_url('account/childAccounts/edit/' . $this->getChildId($new_name)), 'here'), 'success' => 0));
         }
         $this->Child->edit($childData, $child_id);
         return json_encode(array('success' => 1, 'message' => 'child details successfully edited. Add parents/handlers from ' . anchor(site_url('account/handlers/registerWithChild/' . $child_id), 'here')));
     }
-    
-    function getChildId($name){
-        return $this->Child->getSingleVarChildColumnAttribute($name,COL_CHILD_NAME,COL_CHILD_ID);
+
+    function getChildId($name) {
+        return $this->Child->getSingleVarChildColumnAttribute($name, COL_CHILD_NAME, COL_CHILD_ID);
     }
-    
-    function delete(){
-         $this->load->model('children/Child');
-         $child_id = $this->input->post('childId');
-         if($this->Child->deleteChild($child_id))
-              print json_encode(array('success' => 1, 'message' =>return_feedback(true, 'Child succefully deleted. Return to children report from '.anchor(site_url('reports/children'),'here'))));
-         else
-              print json_encode(array('success' => 0, 'message' =>return_feedback(false, 'An error occured when deleting the Child')));
+
+    function delete() {
+        restrictUserFunctionlityBasedOnRole($this->config->item('role_admin'));
+        $this->load->model('children/Child');
+        $child_id = $this->input->post('childId');
+        if ($this->Child->deleteChild($child_id))
+            print json_encode(array('success' => 1, 'message' => return_feedback(true, 'Child succefully deleted. Return to children report from ' . anchor(site_url('reports/children'), 'here'))));
+        else
+            print json_encode(array('success' => 0, 'message' => return_feedback(false, 'An error occured when deleting the Child')));
     }
+
 }

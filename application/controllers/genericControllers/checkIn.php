@@ -73,7 +73,7 @@ class CheckIn extends Admin_secure {
         $data[COL_CHECK_IN_NUMBER] = $card_num;
         $data[COL_SIBLING_COUNT] = $this->input->post('siblingNo');
         $data[COL_CHECK_IN_UnderId] = $checkin_id;
-         $data[COL_STATUS] = "IN";
+         $data[COL_STATUS] = $this->config->item('checkin_status_in');
 
         //get handler id if any//registered independenlty for one of the siblings
         $handler_id = $this->RollCall->getSingleRollCallAttribute($checkin_id, COL_HANDLER_ID);

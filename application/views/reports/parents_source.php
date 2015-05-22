@@ -17,7 +17,7 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($handlers as $handler) { ?>
+            <?php foreach ($handlers as $handler) { $handler_id = $handler[COL_HANDLER_ID]; ?>
                 <tr>
                     <td><?php print anchor(site_url('account/handlers/edit/' . $handler[COL_HANDLER_ID]),(strlen($handler[COL_HANDLER_NAME]) < 2)? 'no name':$handler[COL_HANDLER_NAME]); ?></td>
                     <td><?php print $handler[COL_RESIDENCE]; ?></td>
@@ -26,7 +26,7 @@
                     <td><?php print $handler[COL_EMAIL]; ?></td>
                     <th><a onClick="showChildren(<?php print $handler[COL_HANDLER_ID]; ?>)" href="#">children</a></th>
                     <?php if (!isset($relation)): ?>
-                        <td><?php print isset($handler[COL_RELATIONSHIP])?$handler[COL_RELATIONSHIP]:''; ?></td>
+                        <td><a href="#" onClick="editRelationShip(<?php print isset($child_id)?$child_id:'' ?>,<?php print isset($handler_id)?$handler_id:'' ?>)"><?php print isset($handler[COL_RELATIONSHIP])?$handler[COL_RELATIONSHIP]:''; ?></a></td>
                     <?php endif; ?>
                     <td><?php print $handler[COL_OTHER_CHURCH]; ?></td>
                     <th><?php print $handler[COL_CELL_NO]; ?></th>
@@ -36,3 +36,11 @@
         </tbody>
     </table>
 </div>
+
+<script type = "text/Javascript" >
+    function editRelationShip(child_id,handler_id){
+        $("#childrenModal").load("<?php print site_url('reports/handlers/editChildRelationship'); ?>" + "/" + child_id + "/" + handler_id );
+        $('#childrenModal').modal({'show': true});
+        $('#parentsModal').modal('hide');
+    }
+</script>

@@ -22,8 +22,8 @@ class Attendance extends Admin_secure {
         $sarch_date = $this->input->post('reservation');
         if (strlen($sarch_date) > 8) {
             $date_range_split = getStartEndDateFromRange($sarch_date);
-            $morning = $date_range_split['start'];
-            $night = $date_range_split['end'];
+            $morning = $date_range_split['start'].' 00:00';
+            $night = $date_range_split['end'].' 24:00';
         }
         $data['children'] = $this->AttendanceReports->getAttendanceBetweenDates($morning, $night);
         $this->load->view('reports/attendance', $data);

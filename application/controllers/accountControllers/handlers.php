@@ -74,7 +74,7 @@ class Handlers extends Admin_secure {
 
     private function insertHandler($handler_data, $name) {
         if ($this->Handler->checkExists($name)) {
-            print json_encode(array('success' => 0, 'message' => "Parent/handler with a similar name already exists. View this handler's details from ".anchor(site_url('account/handlers/edit/'.$this->getHandlerId($name)),'here')));
+            print json_encode(array('success' => 0, 'message' => "Parent/handler with a similar name already exists. View this handler's details from " . anchor(site_url('account/handlers/edit/' . $this->getHandlerId($name)), 'here')));
             return;
         }
         return $this->Handler->insert($handler_data);
@@ -83,7 +83,7 @@ class Handlers extends Admin_secure {
     private function editHandlerDetails($handler_data, $handler_id, $new_name, $old_name) {
         if (trim($old_name) != trim($new_name)) {
             if ($this->Handler->checkExists(trim($new_name)))
-                return json_encode(array('message' => "Parent/handler with a similar name already exists. View this handler's details from ".anchor(site_url('account/handlers/edit/'.$this->getHandlerId($new_name)),'here'), 'success' => 0));
+                return json_encode(array('message' => "Parent/handler with a similar name already exists. View this handler's details from " . anchor(site_url('account/handlers/edit/' . $this->getHandlerId($new_name)), 'here'), 'success' => 0));
         }
         $this->Handler->edit($handler_data, $handler_id);
         return json_encode(array('success' => 1, 'message' => "Parent/Handler details succesfully updated. Attach children from " . anchor(site_url('account/handlers/registerChild/' . $handler_id), 'here')));
@@ -104,19 +104,20 @@ class Handlers extends Admin_secure {
         $data['handler_name'] = $this->Handler->getSingleHandlerColumnAttribute($handler_id, COL_HANDLER_ID, COL_HANDLER_NAME);
         $this->load->view('accounts/handler_child_register', $data);
     }
-    
-    
-    function getHandlerId($name){
-        return $this->Handler->getSingleHandlerColumnAttribute($name,COL_HANDLER_NAME,COL_HANDLER_ID);
+
+    function getHandlerId($name) {
+        return $this->Handler->getSingleHandlerColumnAttribute($name, COL_HANDLER_NAME, COL_HANDLER_ID);
     }
-    
-    function delete(){
-         $this->load->model('handlers/Handler');
-         $handlerId = $this->input->post('handlerId');
-         if($this->Handler->deleteHandler($handlerId))
-              print json_encode(array('success' => 1, 'message' =>return_feedback(true, 'Handler succefully deleted. Return to the handler report from '.anchor(site_url('reports/handlers'),'here'))));
-         else
-              print json_encode(array('success' => 0, 'message' =>return_feedback(false, 'An error occured when deleting the Child')));
+
+    function delete() {
+        restrictUserFunctionlityBasedOnRole($this->config->item('role_admin'));
+        $this->load->model('handlers/Handler');
+        $handlerId = $this->input->post('handlerId');
+        if ($this->Handler->deleteHandler($handlerId))
+            print json_encode(array('success' => 1, 'message' => return_feedback(true, 'Handler succefully deleted. Return to the handler report from ' . anchor(site_url('reports/handlers'), 'here'))));
+        else
+            print json_encode(array('success' => 0, 'message' => return_feedback(false, 'An error occured when deleting the Child')));
     }
+
 }
 

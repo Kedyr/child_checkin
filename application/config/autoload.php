@@ -80,7 +80,7 @@ $autoload['helper'] = array('asset','url','feedback','common','accounts','checki
 |
 */
 
-$autoload['config'] = array('roles');
+$autoload['config'] = array('roles','checkin');
 
 
 /*
