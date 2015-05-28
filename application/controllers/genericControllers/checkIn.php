@@ -9,6 +9,11 @@ if (!defined('BASEPATH'))
 require APPPATH . '/controllers/admin_secure.php';
 
 class CheckIn extends Admin_secure {
+    
+    function __construct() {
+        parent::__construct();
+        $this->forceCheckout();
+    }
 
     function registered() {
         $this->load->model('children/Child');
@@ -16,6 +21,11 @@ class CheckIn extends Admin_secure {
         $all_children = $this->Child->getAllForSearch();
         $data['children'] = json_encode($all_children);
         $this->load->view('checkin/checkin', $data);
+    }
+    
+    function forceCheckout(){
+           $this->load->model('checkinout/RollCall');
+           $this->RollCall->forceCheckout();
     }
 
     function unregistered() {
@@ -47,7 +57,7 @@ class CheckIn extends Admin_secure {
             print return_feedback(false, 'Child already checked in : ' . $name);
         else {
             $data['checkin_id'] = $this->checkinChild($childId);
-            $data['status'] = "IN";
+            $data['status'] = $this->config->item('checkin_status_in');
             $this->load->view('checkin/registeredChekinSource', $data);
         }
     }

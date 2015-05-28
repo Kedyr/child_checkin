@@ -36,7 +36,7 @@ class RollCall extends CI_Model {
     }
 
     function checkIfChildCheckedIn($childId) {
-        return $this->Dbwrapper->minedb_check_if_record_exists(TBL_CHECKINOUT, array(COL_CHILD_ID => $childId, COL_STATUS => "IN"));
+        return $this->Dbwrapper->minedb_check_if_record_exists(TBL_CHECKINOUT, array(COL_CHILD_ID => $childId, COL_STATUS => $this->config->item('checkin_status_in')));
     }
 
     function get($checkinId) {
@@ -51,7 +51,7 @@ class RollCall extends CI_Model {
 
     function getCardNumbersForCheckedInChildren() {
         $this->db->select(COL_CHECK_IN_UnderId . ' , ' . COL_CHECK_IN_NUMBER)->from(TBL_CHECKINOUT);
-        $query = $this->db->where(COL_STATUS, 'IN')->group_by(COL_CHECK_IN_NUMBER)->get();
+        $query = $this->db->where(COL_STATUS, $this->config->item('checkin_status_in'))->group_by(COL_CHECK_IN_NUMBER)->get();
         $results = $this->Dbwrapper->summarize_get_and_select($query);
         $cards = array();
         foreach ($results as $child) {
@@ -93,7 +93,10 @@ class RollCall extends CI_Model {
     }
     
     function checkIfCheckinNumberGivenOut($card_num){
-        return $this->Dbwrapper->minedb_check_if_record_exists(TBL_CHECKINOUT,array(COL_STATUS=>"IN",COL_CHECK_IN_NUMBER=>$card_num));
+        return $this->Dbwrapper->minedb_check_if_record_exists(TBL_CHECKINOUT,array(COL_STATUS=>$this->config->item('checkin_status_in'),COL_CHECK_IN_NUMBER=>$card_num));
     }
-
+    
+    function forceCheckout(){
+        $this->db->query("UPDATE ". TBL_CHECKINOUT." SET ".COL_STATUS." = '".$this->config->item('checkin_status_force_out')."' WHERE datediff('".getCurrentTime()."' , ". COL_TIME_IN ." ) > ".$this->config->item('checkin_force_checkout_timeout'). " AND (".COL_STATUS." <> '".$this->config->item('checkin_status_in')."' OR ".COL_STATUS." <> '".$this->config->item('checkin_status_incomplete')."')" );
+    }
 }

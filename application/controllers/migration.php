@@ -9,6 +9,12 @@ if (!defined('BASEPATH'))
 require APPPATH . '/controllers/admin_secure.php';
 
 class Migration extends Admin_secure {
+    
+ 
+    function cleanEmptyHandler(){
+        restrictUserFunctionlityBasedOnRole($this->config->item('role_admin'));
+        $this->db->query('delete from '.TBL_HANDLERS.' where isnull('. COL_HANDLER_NAME.') ');
+    }
 
    /* function migrateChildren() {
         $this->db->select('NAME , SEX , SCHOOL ,  CLASS , PLACEOFRESIDENCEC , DATEOlFBIRTH ,CELLNUMBER_,CELLLEADERSNAMEC');
