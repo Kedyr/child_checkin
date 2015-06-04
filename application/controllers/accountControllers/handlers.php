@@ -67,7 +67,7 @@ class Handlers extends Admin_secure {
                 if (is_numeric($child_id))
                     print $this->insertHandlerChildRelationship($handler_id, $child_id, $relationship);
                 else
-                    print json_encode(array('success' => 1, 'message' => "Parent/Handler succesfully registerd. Attach children from " . anchor(site_url('account/handlers/registerChild/' . $handler_id), 'here')));
+                    print json_encode(array('success' => 1, 'message' => "Parent/Handler succesfully registerd. Attach more children from " . anchor(site_url('account/handlers/registerChild/' . $handler_id), 'Attach more children').anchor(site_url('account/handlers/registerWithChild/' . $child_id), ' Add other child handler i.e mother') ) );
             endif;
         }
     }
@@ -91,7 +91,7 @@ class Handlers extends Admin_secure {
 
     function insertHandlerChildRelationship($handler_id, $child_id, $relationship) {
         if ($this->Handler->insertHandlerChildRelationship($child_id, $handler_id, $relationship))
-            return json_encode(array('success' => 1, 'message' => "Parent/Handler succesfully registerd. Attach children from " . anchor(site_url('account/handlers/registerChild/' . $handler_id), 'here')));
+            return json_encode(array('success' => 1, 'message' => "Parent/Handler succesfully registerd. " . anchor(site_url('account/handlers/registerChild/' . $handler_id), ' Attach more children').anchor(site_url('account/handlers/registerWithChild/' . $child_id), ' Add other child handler i.e mother')));
         else
             return json_encode(array('success' => 0, 'message' => "An error occured when saving the parent/Handler"));
     }

@@ -12,8 +12,8 @@ class Migration extends Admin_secure {
     
  
     function cleanEmptyHandler(){
-        restrictUserFunctionlityBasedOnRole($this->config->item('role_admin'));
-        $this->db->query('delete from '.TBL_HANDLERS.' where isnull('. COL_HANDLER_NAME.') ');
+       restrictUserFunctionlityBasedOnRole($this->config->item('role_admin'));
+       $this->db->query('delete from '.TBL_HANDLERS.' where isnull('. COL_HANDLER_NAME.') ');
     }
 
    /* function migrateChildren() {
