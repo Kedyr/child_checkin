@@ -23,5 +23,11 @@ class AttendanceReports extends CI_Model {
         return $this->Dbwrapper->summarize_get_and_select($query);
     }
     
+    function getSummary($date_start,$date_end,$status){
+        $this->db->select("COUNT(".COL_CHECKIN_ID.") AS COUNT")->from(TBL_CHECKINOUT);
+        $query = $this->db->where(COL_TIME_IN." >= '".$date_start."' and ".COL_TIME_IN." <= '".$date_end."' and ".COL_STATUS." = '".$status."'")->get();
+        return $this->Dbwrapper->summarize_get_and_select($query,TRUE,"COUNT");
+    }
+    
   
 }

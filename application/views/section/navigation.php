@@ -13,7 +13,7 @@
         </div>
          <div id="navbar" class="navbar-collapse collapse">
         <ul id="left_nav_menu" class="nav navbar-nav pull-right">
-          <!-- <li class="<?php print isset($home_active) ? $home_active : ''; ?> bold"><a href="<?php print site_url('generic/home'); ?>">Home</a></li> -->
+             <li class="<?php print isset($home_active) ? $home_active : ''; ?> bold"><a href="<?php print site_url('generic/home'); ?>">Home</a></li>
             <li class="<?php print isset($checkinReg_active) ? $checkinReg_active : ''; ?> bold"><a href="<?php print site_url('generic/checkin/registered'); ?>">Registered</a></li>
             <li class="<?php print isset($checkinNReg_active) ? $checkinNReg_active : ''; ?> bold"><a href="<?php print site_url('generic/checkin/unregistered'); ?>">UnRegistered</a></li>
             <li class="<?php print isset($checkout_active) ? $checkout_active : ''; ?> bold"><a href="<?php print site_url('generic/checkout/card'); ?>">Check-Out</a></li>

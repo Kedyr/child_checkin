@@ -156,3 +156,8 @@ function getStartEndDateFromRange($daterange) {
     $end_date = $dateet->format('Y-m-d');
     return array('start'=>$start_time,'end'=>$end_date);
 }
+
+function getSDate($date) {
+    date_default_timezone_set('Africa/Nairobi');
+    return getTime($date)->format('Y-m-d');
+}
