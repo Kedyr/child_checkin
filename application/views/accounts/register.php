@@ -34,7 +34,7 @@
                     <span id="feedback"></span>
                     <div id="form_Details">
                         <?php
-                        echo form_open(site_url('account/child_accounts/saveChildDetails/'), array('id' => 'create_child'));
+                        echo form_open(site_url('account/childAccounts/saveChildDetails/'), array('id' => 'create_child'));
                         $this->load->view('accounts/register_source');
                         print form_close();
                         ?>

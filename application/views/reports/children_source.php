@@ -16,7 +16,7 @@
                     <tbody>
                         <?php foreach ($children as $child) { ?>
                             <tr>
-                                <td><?php print anchor(site_url('account/child_accounts/edit/'.$child[COL_CHILD_ID]),(strlen($child[COL_CHILD_NAME]) < 2)? 'no name':$child[COL_CHILD_NAME]); ?></td>
+                                <td><?php print anchor(site_url('account/childaccounts/edit/'.$child[COL_CHILD_ID]),(strlen($child[COL_CHILD_NAME]) < 2)? 'no name':$child[COL_CHILD_NAME]); ?></td>
                                 <td><?php print $child[COL_CHURCH_CLASS]; ?></td>
                                 <td><?php print calculateAge($child[COL_DOB]); ?></td>
                                 <td><?php print $child[COL_SEX]; ?></td>
