@@ -7,7 +7,7 @@ if (!defined('BASEPATH'))
  *
  * @author Kedyr <deniskedyr@gmail.com>
  */
-class RollCall extends CI_Model {
+class Rollcall extends CI_Model {
 
     //todo amplify error reporting
     public function __construct() {

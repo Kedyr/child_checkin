@@ -11,7 +11,7 @@ require APPPATH . '/controllers/admin_secure.php';
 class Attendance extends Admin_secure {
 
     function index() {
-        $this->load->model('reports/AttendanceReports');
+        $this->load->model('reports/Attendance_reports');
         $data['registered'] = TRUE;
         $date = date('Y-m-d');
         $date_2 = date('m/d/Y');
@@ -25,7 +25,7 @@ class Attendance extends Admin_secure {
             $morning = $date_range_split['start'].' 00:00';
             $night = $date_range_split['end'].' 24:00';
         }
-        $data['children'] = $this->AttendanceReports->getAttendanceBetweenDates($morning, $night);
+        $data['children'] = $this->Attendance_reports->getAttendanceBetweenDates($morning, $night);
         $this->load->view('reports/attendance', $data);
     }
 

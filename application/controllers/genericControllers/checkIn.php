@@ -24,8 +24,8 @@ class CheckIn extends Admin_secure {
     }
     
     function forceCheckout(){
-           $this->load->model('checkinout/RollCall');
-           $this->RollCall->forceCheckout();
+           $this->load->model('checkinout/Rollcall');
+           $this->Rollcall->forceCheckout();
     }
 
     function unregistered() {
@@ -36,7 +36,7 @@ class CheckIn extends Admin_secure {
     function getChildFamily() {
         ajax_only_request();
         $this->load->model('children/Child');
-        $this->load->model('checkinout/RollCall');
+        $this->load->model('checkinout/Rollcall');
         $childId = $this->input->post('childId');
         $handlers = $this->Child->getHandlers($childId);
         $data['handlers'] = $handlers;
@@ -53,7 +53,7 @@ class CheckIn extends Admin_secure {
         $data['searchAge'] = calculateAge($child_details[COL_DOB]) . ' years';
 
 
-        if ($this->RollCall->checkIfChildCheckedIn($childId))
+        if ($this->Rollcall->checkIfChildCheckedIn($childId))
             print return_feedback(false, 'Child already checked in : ' . $name);
         else {
             $data['checkin_id'] = $this->checkinChild($childId);
@@ -63,19 +63,19 @@ class CheckIn extends Admin_secure {
     }
 
     function checkinChild($child_id, $checkin_id = 0) {
-        $this->load->model('checkinout/RollCall');
+        $this->load->model('checkinout/Rollcall');
         $data[COL_CHILD_ID] = $child_id;
         $data[COL_SERVICE_ID] = NULL;
         $data[COL_TIME_IN] = getCurrentTime();
         $data[COL_COMMENTS] = NULL;
         $data[COL_STATUS] = $this->config->item('checkin_status_incomplete') ;
         $data[COL_CHECK_IN_UnderId] = ($checkin_id == 0) ? NULL : $checkin_id;
-        return $this->RollCall->checkin($data);
+        return $this->Rollcall->checkin($data);
     }
 
     function completeCheckin() {
         ajax_only_request();
-        $this->load->model('checkinout/RollCall');
+        $this->load->model('checkinout/Rollcall');
         $checkin_id = $this->input->post('checkin_id');
         $handler_name = $this->input->post('handler');
         $data[COL_HANDLER_NAME] = $handler_name;
@@ -86,14 +86,14 @@ class CheckIn extends Admin_secure {
          $data[COL_STATUS] = $this->config->item('checkin_status_in');
 
         //get handler id if any//registered independenlty for one of the siblings
-        $handler_id = $this->RollCall->getSingleRollCallAttribute($checkin_id, COL_HANDLER_ID);
+        $handler_id = $this->Rollcall->getSingleRollCallAttribute($checkin_id, COL_HANDLER_ID);
         if (is_numeric($handler_id))
             $data[COL_HANDLER_ID] = $handler_id;
 
-        if ($this->RollCall->checkIfCheckinNumberGivenOut($card_num)) {
+        if ($this->Rollcall->checkIfCheckinNumberGivenOut($card_num)) {
             print json_encode(array('success' => 0, 'message' =>return_feedback(false, 'Selected Card number has already been used!')));
         }else{
-            if ($this->RollCall->updateChildrenCheckinWIthHandlerDetails($data, $checkin_id))
+            if ($this->Rollcall->updateChildrenCheckinWIthHandlerDetails($data, $checkin_id))
                 print json_encode(array('success'=>1,'message'=>return_feedback(true, 'Children succefully checked-In ')));
             else
                 print json_encode(array('success'=>0,'message'=>return_feedback(false, 'An error occured when completing child check-in')));
@@ -114,19 +114,19 @@ class CheckIn extends Admin_secure {
 
     function checkinHandler() {
         ajax_only_request();
-        $this->load->model('checkinout/RollCall');
+        $this->load->model('checkinout/Rollcall');
         $handlerIdIdentifier = $this->input->post('handlerId');
         $checkin_id = $this->input->post('checkin_id');
         $arr = explode("_", $handlerIdIdentifier); //retrieve id from dom id
         $data[COL_HANDLER_ID] = $arr[1];
-        if ($this->RollCall->updateChildrenCheckinWIthHandlerDetails($data, $checkin_id))
+        if ($this->Rollcall->updateChildrenCheckinWIthHandlerDetails($data, $checkin_id))
             print return_feedback(true, 'Children succefully checked-In ');
         else
             print return_feedback(false, 'An error occured when completing the chek-IN');
     }
 
     function checkinUnreg() {
-        $this->load->model('checkinout/RollCall');
+        $this->load->model('checkinout/Rollcall');
         $handler_name = $this->input->post('handler');
         $card_num = $this->input->post('cardNum');
         $data[COL_CHECK_IN_NUMBER] = $card_num;
@@ -138,13 +138,13 @@ class CheckIn extends Admin_secure {
         $data[COL_STATUS] = "IN";
         $data[COL_SERVICE_ID] = NULL;
 
-        if ($this->RollCall->checkIfCheckinNumberGivenOut($card_num)) {
+        if ($this->Rollcall->checkIfCheckinNumberGivenOut($card_num)) {
             print json_encode(array('success' => 0, 'message' => 'Selected Card number has already been used!'));
             return;
         }
 
-        $checkin_id = $this->RollCall->checkin($data);
-        if ($this->RollCall->update(array(COL_CHECK_IN_UnderId => $checkin_id), $checkin_id))
+        $checkin_id = $this->Rollcall->checkin($data);
+        if ($this->Rollcall->update(array(COL_CHECK_IN_UnderId => $checkin_id), $checkin_id))
             print json_encode(array('success' => 1, 'message' => 'Successfully checked-In'));
         else
             print json_encode(array('success' => 0, 'message' => 'An error occured when saving details, please try again'));

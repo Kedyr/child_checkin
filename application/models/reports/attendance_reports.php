@@ -7,7 +7,7 @@ if (!defined('BASEPATH'))
  *
  * @author Kedyr <deniskedyr@gmail.com>
  */
-class AttendanceReports extends CI_Model {
+class Attendance_reports extends CI_Model {
 
     //todo amplify error reporting
     public function __construct() {
