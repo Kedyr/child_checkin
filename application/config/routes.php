@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = "genericControllers/home";
+$route['default_controller'] = "genericcontrollers/home";
 $route['404_override'] = '';
 
 $route['/'] = "accountControllers/login";
@@ -47,5 +47,13 @@ $route['logout'] = "accountControllers/logout";
 $route['account/(:any)'] = "accountControllers/$1";
 $route['generic/(:any)'] = "genericControllers/$1";
 $route['reports/(:any)'] = "reportsControllers/$1";
+
+$route['/'] = "accountcontrollers/login";
+$route['login'] = "accountcontrollers/login";
+$route['logout'] = "accountcontrollers/logout";
+$route['account/(:any)'] = "accountcontrollers/$1";
+$route['generic/(:any)'] = "genericcontrollers/$1";
+$route['reports/(:any)'] = "reportscontrollers/$1";
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

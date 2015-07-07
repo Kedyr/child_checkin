@@ -8,7 +8,7 @@ if (!defined('BASEPATH'))
  */
 require APPPATH . '/controllers/admin_secure.php';
 
-class CheckIn extends Admin_secure {
+class Checkin extends Admin_secure {
     
     function __construct() {
         parent::__construct();

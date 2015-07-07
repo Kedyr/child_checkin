@@ -51,7 +51,9 @@ class Rollcall extends CI_Model {
 
     function getCardNumbersForCheckedInChildren() {
         $this->db->select(COL_CHECK_IN_UnderId . ' , ' . COL_CHECK_IN_NUMBER)->from(TBL_CHECKINOUT);
-        $query = $this->db->where(COL_STATUS, $this->config->item('checkin_status_in'))->group_by(COL_CHECK_IN_NUMBER)->get();
+        $this->db->where(COL_STATUS, $this->config->item('checkin_status_in'))->group_by(COL_CHECK_IN_NUMBER);
+        $this->db->order_by(COL_CHECK_IN_NUMBER,'asc');
+        $query = $this->db->get();
         $results = $this->Dbwrapper->summarize_get_and_select($query);
         $cards = array();
         foreach ($results as $child) {

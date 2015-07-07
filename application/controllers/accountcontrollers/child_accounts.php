@@ -9,7 +9,7 @@ if (!defined('BASEPATH'))
  */
 require APPPATH . '/controllers/admin_secure.php';
 
-class ChildAccounts extends Admin_secure {
+class Child_accounts extends Admin_secure {
 
     function register() {
         $data['accounts_active'] = 'active';
@@ -64,7 +64,7 @@ class ChildAccounts extends Admin_secure {
         $this->load->model('children/Child');
         $this->load->model('handlers/Handler');
         if ($this->Child->checkExists(trim($name)))
-            return json_encode(array('message' => "Child with a similar name already exists.  view this child's details from " . anchor(site_url('account/childAccounts/edit/' . $this->getChildId($name)), 'here'), 'success' => 0));
+            return json_encode(array('message' => "Child with a similar name already exists.  view this child's details from " . anchor(site_url('account/child_accounts/edit/' . $this->getChildId($name)), 'here'), 'success' => 0));
         else {
             $child_id = $this->Child->insert($childData);
             if (is_numeric($handler_id))
@@ -77,7 +77,7 @@ class ChildAccounts extends Admin_secure {
         $this->load->model('children/Child');
         if (trim($old_name) != trim($new_name)) {
             if ($this->Child->checkExists(trim($new_name)))
-                return json_encode(array('message' => "Child with a similar name already exists. view this child's details from " . anchor(site_url('account/childAccounts/edit/' . $this->getChildId($new_name)), 'here'), 'success' => 0));
+                return json_encode(array('message' => "Child with a similar name already exists. view this child's details from " . anchor(site_url('account/child_accounts/edit/' . $this->getChildId($new_name)), 'here'), 'success' => 0));
         }
         $this->Child->edit($childData, $child_id);
         return json_encode(array('success' => 1, 'message' => 'child details successfully edited. Add parents/handlers from ' . anchor(site_url('account/handlers/registerWithChild/' . $child_id), 'here')));

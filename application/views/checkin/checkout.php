@@ -40,9 +40,10 @@
         return {value: value, data: key};
     });
 
-
     $('#autocomplete-ajax').autocomplete({
         // serviceUrl: '/autosuggest/service/url',
+        triggerSelectOnValidInput: false,
+        autoSelectFirst:true,
         lookup: cardNumberArray,
         lookupFilter: function(suggestion, originalQuery, queryLowerCase) {
             var re = new RegExp('\\b' + $.Autocomplete.utils.escapeRegExChars(queryLowerCase), 'gi');

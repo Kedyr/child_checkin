@@ -14,7 +14,7 @@
                 <div class="col-md-12">
                     <h3>Parent/Handler Registration<small>
                             <?php if (isset($child_id)): ?>
-                                for  <span class="colorHeadings"><?php print anchor(site_url('account/childaccounts/edit/' . $child_id), isset($child_name) ? $child_name : ''); ?> </span>
+                                for  <span class="colorHeadings"><?php print anchor(site_url('account/child_accounts/edit/' . $child_id), isset($child_name) ? $child_name : ''); ?> </span>
                             <?php endif; ?>
                         </small></h3>            
                 </div>
