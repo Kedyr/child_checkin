@@ -70,10 +70,20 @@ class Handler extends CI_Model {
         $query = $this->db->get();
         return $this->Dbwrapper->summarize_get_and_select($query);
     }
-    
-    function deleteHandler($handler_id){
-        return $this->db->delete(TBL_HANDLERS,array(COL_HANDLER_ID=>$handler_id));
+
+    function deleteHandler($handler_id) {
+        return $this->db->delete(TBL_HANDLERS, array(COL_HANDLER_ID => $handler_id));
     }
 
+    function deletetHandlerChildRelationship($child_id, $handler_id) {
+        return $this->db->delete(TBL_CHILD_HANDLER_RELATIONSHIP, array(COL_CHILD_ID => $child_id, COL_HANDLER_ID => $handler_id));
+    }
+
+    function searchHandler($search_item) {
+        $this->db->select(COL_HANDLER_NAME . ' , ' . COL_HANDLER_ID);
+        $this->db->from(TBL_HANDLERS);
+        $query = $this->db->like(COL_HANDLER_NAME, $search_item)->get();
+        return $this->Dbwrapper->summarize_get_and_select($query);
+    }
 
 }

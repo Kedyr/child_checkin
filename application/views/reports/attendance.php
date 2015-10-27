@@ -26,10 +26,8 @@
                 <table id="report" class="table table-striped table-hover table-bordered">
                     <thead>
                         <tr>
-                            <?php if ($registered): ?>
-                                <th>Name</th>
-                                <th>Class</th>
-                            <?php endif; ?>
+                            <th>Name</th>
+                            <th>Class</th>
                             <th>Card-No</th>
                             <th>Sibling Count</th>
                             <th>Handler</th>
@@ -40,10 +38,14 @@
                     <tbody>
                         <?php foreach ($children as $child) { ?>
                             <tr>
-                                <?php if ($registered): ?>
-                                    <td><?php print $child[COL_CHILD_NAME]; ?></td>
+                                <?php if (!empty($child[COL_CHILD_ID])){ ?>
+                                    <td><?php print anchor(site_url('account/child_accounts/edit/'.$child[COL_CHILD_ID]), $child[COL_CHILD_NAME]); ?></td>
                                     <td><?php print $child[COL_CHURCH_CLASS]; ?></td>
-                                <?php endif; ?>
+                                <?php }
+                                    else {
+                                        print "<td></td>";
+                                        print "<td></td>";
+                                }; ?>
                                 <td><?php print $child[COL_CHECK_IN_NUMBER]; ?></td>
                                 <td><?php print $child[COL_SIBLING_COUNT]; ?></td>
                                 <td><?php print $child[COL_HANDLER_NAME].' '.$child['handler']; ?></td>

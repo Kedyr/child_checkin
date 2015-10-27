@@ -20,10 +20,10 @@
             <table id="report" class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th></th>
+                        <th><h4>Checkin-Numbers</h4></th>
                         <th>Checked In</th>
                         <th>Checked-Out</th>
-                        <th>Not Checked-Out</th>
+                        <th>Day Totals</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,31 +31,71 @@
                         <td>First Service</td>
                         <td><?php print isset($first_total_in) ? $first_total_in : ''; ?></td>
                         <td><?php print isset($first_total_out) ? $first_total_out : ''; ?></td>
-                        <td><?php print $first_total_in - $first_total_out; ?></td>
+                        <td><?php print $first_total_in + $first_total_out; ?></td>
                     </tr>
                     <tr>
                         <td>Second Service</td>
                         <td><?php print isset($second_total_in) ? $second_total_in : ''; ?></td>
                         <td><?php print isset($second_total_out) ? $second_total_out : ''; ?></td>
-                        <td><?php print $second_total_in - $second_total_out; ?></td>
+                        <td><?php print $second_total_in + $second_total_out; ?></td>
                     </tr>
                     <tr>
                         <td>Third  Service</td>
                         <td><?php print isset($third_total_in) ? $third_total_in : ''; ?></td>
                         <td><?php print isset($third_total_out) ? $third_total_out : ''; ?></td>
-                        <td><?php print $third_total_in - $third_total_out; ?></td>
+                        <td><?php print $third_total_in + $third_total_out; ?></td>
                     </tr>
                     <tr>
                         <td>Day Totals</td>
                         <td><?php print isset($total_in) ? $total_in : ''; ?></td>
                         <td><?php print isset($total_out) ? $total_out : ''; ?></td>
-                        <td><?php print $total_in - $total_out; ?></td>
+                        <td><?php print $total_in + $total_out; ?></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+
+
+            <table id="report" class="table table-striped table-hover table-centred table-bordered">
+                <thead>
+                    <tr>
+                        <th><h4>Child Attendance</h4></th>
+                        <th>Checked In <br/> <span class="small">registered | unregistered </span></th>
+                        <th>Checked-Out <br/> <span class="small">registered | unregistered </span></th>
+                        <th>Day Totals</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>First Service</td>
+                        <td><?php print $child_summaries['first_total_in_reg'].' | '.$child_summaries['first_total_in_unreg'] ; ?></td>
+                        <td><?php print $child_summaries['first_total_out_reg'].' | '.$child_summaries['first_total_out_unreg'] ; ?></td>
+                        <td><?php print $child_summaries['first_total_in_reg'] + $child_summaries['first_total_in_unreg'] + $child_summaries['first_total_out_reg'] + $child_summaries['first_total_out_unreg'] ; ?></td>
+                    </tr>
+                    <tr>
+                        <td>Second Service</td>
+                        <td><?php print $child_summaries['second_total_in_reg'].' | '.$child_summaries['second_total_in_unreg'] ; ?></td>
+                        <td><?php print $child_summaries['second_total_out_reg'].' | '.$child_summaries['second_total_out_unreg'] ; ?></td>
+                        <td><?php print $child_summaries['second_total_in_reg'] + $child_summaries['second_total_in_unreg'] + $child_summaries['second_total_out_reg'] + $child_summaries['second_total_out_unreg'] ; ?></td>
+                    </tr>
+                    <tr>
+                        <td>Third  Service</td>
+                        <td><?php print $child_summaries['third_total_in_reg'].' | '.$child_summaries['third_total_in_unreg'] ; ?></td>
+                        <td><?php print $child_summaries['third_total_out_reg'].' | '.$child_summaries['third_total_out_unreg'] ; ?></td>
+                        <td><?php print $child_summaries['third_total_in_reg'] + $child_summaries['third_total_in_unreg'] + $child_summaries['third_total_out_reg'] + $child_summaries['third_total_out_unreg'] ; ?></td>
+                    </tr>
+                    <tr>
+                        <td>Day Totals</td>
+                        <td><?php print $child_summaries['total_in_reg'].' | '.$child_summaries['total_in_unreg'] ; ?></td>
+                        <td><?php print $child_summaries['total_out_reg'].' | '.$child_summaries['total_out_unreg'] ; ?></td>
+                        <td><?php print $child_summaries['total_in_reg'] + $child_summaries['total_in_unreg'] + $child_summaries['total_out_reg'] + $child_summaries['total_out_unreg'] ; ?></td>
+                  
                     </tr>
                 </tbody>
             </table>
             <p>
                 <b>Note : </b>
-                The service times have been defines as: </p>
+                The service times have been defined as: </p>
             <p>
                 First service: Start-<?php print $this->config->item('checkin_startime_first_service'); ?> End-<?php print $this->config->item('checkin_endtime_first_service'); ?>
             </p>

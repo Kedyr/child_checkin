@@ -29,7 +29,9 @@ class Rollcall extends CI_Model {
      * @param type $details
      * @param type $chekinUnderId
      */
-    function updateChildrenCheckinWIthHandlerDetails($details, $chekinUnderId) {
+    function updateChildrenCheckinWIthHandlerDetails($details, $chekinUnderId,$sibling_count) {
+        $this->db->update(TBL_CHECKINOUT,array(COL_SIBLING_COUNT=>$sibling_count),array(COL_CHECKIN_ID=>$chekinUnderId));
+        
         $this->db->where(COL_CHECKIN_ID, $chekinUnderId);
         $this->db->or_where(COL_CHECK_IN_UnderId, $chekinUnderId);
         return $this->db->update(TBL_CHECKINOUT, $details);
@@ -51,7 +53,9 @@ class Rollcall extends CI_Model {
 
     function getCardNumbersForCheckedInChildren() {
         $this->db->select(COL_CHECK_IN_UnderId . ' , ' . COL_CHECK_IN_NUMBER)->from(TBL_CHECKINOUT);
-        $query = $this->db->where(COL_STATUS, $this->config->item('checkin_status_in'))->group_by(COL_CHECK_IN_NUMBER)->get();
+        $this->db->where(COL_STATUS, $this->config->item('checkin_status_in'))->group_by(COL_CHECK_IN_NUMBER);
+        $this->db->order_by(COL_CHECK_IN_NUMBER,'asc');
+        $query = $this->db->get();
         $results = $this->Dbwrapper->summarize_get_and_select($query);
         $cards = array();
         foreach ($results as $child) {

@@ -64,7 +64,7 @@
             $('#check_in').ajaxSubmit({
                 success: function(response) {
                     Auto_load.drawServerResponse(response, true, 'check_in');
-                        $('#feedback').fadeTo(3000, 0.5);
+                        $('#feedback').fadeTo(5000, 0.5);
                         $('#feedback').fadeTo("fast", 0);
                         $('#siblings').val(0);
                 },

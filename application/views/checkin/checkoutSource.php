@@ -95,7 +95,7 @@ function completeCheckOut() {
         },
    });
 /*
-    $.post('<?php print site_url('generic/checkout/completeCheckout'); ?>', {'checkin_id': checkin_id}, function(response) {
+    $.post('<?php print site_url('generic/Checkout/completeCheckout'); ?>', {'checkin_id': checkin_id}, function(response) {
         $('#selction-ajax').html(response);
         //location.reload();
     }); */

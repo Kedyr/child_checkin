@@ -33,7 +33,7 @@
                 <li class="dropdown <?php print isset($accounts_active) ? $accounts_active : ''; ?> bold">
                     <a  href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Accounts<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="<?php print site_url('account/childaccounts/register'); ?>">Register Child</a></li>
+                        <li><a href="<?php print site_url('account/child_accounts/register'); ?>">Register Child</a></li>
                          <li><a href="<?php print site_url('account/handlers/register'); ?>">Register Handler</a></li>
                         <li class="divider"></li>
                         <li><a href="<?php print site_url('logout'); ?>">Logout</a></li>

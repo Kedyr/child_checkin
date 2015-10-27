@@ -8,13 +8,13 @@ if (!defined('BASEPATH'))
  */
 require APPPATH . '/controllers/admin_secure.php';
 
-class CheckOut extends Admin_secure {
+class Checkout extends Admin_secure {
 
     function card() {
         $data['checkout_active'] = 'active';
         $this->load->model('checkinout/Rollcall');
         $cards = $this->Rollcall->getCardNumbersForCheckedInChildren();
-        $data['cards'] = json_encode($cards);
+        $data['cards'] = excapeJsonStrings(json_encode($cards));
         $this->load->view('checkin/checkout', $data);
     }
 

@@ -5,6 +5,10 @@
 </div>
 <div style="display:none;" class="modal fade in" id="childrenModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 </div>
+<div style="display:none;" class="modal fade in" id="attachHandlerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+</div>
+<div style="display:none;" class="modal fade in" id="attachChildrenModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+</div>
 <div id="bodyContent" class="row">
     <div class="col-md-12">
         <div class="page-header">
@@ -40,6 +44,19 @@
     function showParents(childId) {
         $("#parentsModal").load("<?php print site_url('reports/children/getChildHandlers'); ?>" + "/" + childId);
         $('#parentsModal').modal({'show': true});
+        $('#childrenModal').modal('hide');
+    }
+
+
+    function attachHandler(child_id) {
+        $("#attachHandlerModal").load("<?php print site_url('account/handlers/attachChild'); ?>" + "/" + child_id);
+        $('#attachHandlerModal').modal({'show': true});
+        $('#parentsModal').modal('hide');
+    }
+
+    function attachChildHandler(handlerId) {
+        $("#attachChildrenModal").load("<?php print site_url('account/child_accounts/attachHandler'); ?>" + "/" + handlerId);
+        $('#attachChildrenModal').modal({'show': true});
         $('#childrenModal').modal('hide');
     }
 </script>

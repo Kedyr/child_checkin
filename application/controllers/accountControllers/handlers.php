@@ -67,7 +67,7 @@ class Handlers extends Admin_secure {
                 if (is_numeric($child_id))
                     print $this->insertHandlerChildRelationship($handler_id, $child_id, $relationship);
                 else
-                    print json_encode(array('success' => 1, 'message' => "Parent/Handler succesfully registerd. Attach more children from " . anchor(site_url('account/handlers/registerChild/' . $handler_id), 'Attach more children').anchor(site_url('account/handlers/registerWithChild/' . $child_id), ' Add other child handler i.e mother') ) );
+                    print json_encode(array('success' => 1, 'message' => "Parent/Handler succesfully registerd. Attach new children from " . anchor(site_url('account/handlers/registerChild/' . $handler_id), 'Attach new children') . ' or  <a onClick="attachChildHandler(' . $handler_id . ');" id="attachChildren" href="#"> Attach existing children</a>'));
             endif;
         }
     }
@@ -86,12 +86,12 @@ class Handlers extends Admin_secure {
                 return json_encode(array('message' => "Parent/handler with a similar name already exists. View this handler's details from " . anchor(site_url('account/handlers/edit/' . $this->getHandlerId($new_name)), 'here'), 'success' => 0));
         }
         $this->Handler->edit($handler_data, $handler_id);
-        return json_encode(array('success' => 1, 'message' => "Parent/Handler details succesfully updated. Attach children from " . anchor(site_url('account/handlers/registerChild/' . $handler_id), 'here')));
+        return json_encode(array('success' => 1, 'message' => "Parent/Handler details succesfully updated. Attach new children from " . anchor(site_url('account/handlers/registerChild/' . $handler_id), 'here') . ' or <a onClick="attachChildHandler(' . $handler_id . ');" id="attachChildren" href="#"> Attach existing children</a>'));
     }
 
     function insertHandlerChildRelationship($handler_id, $child_id, $relationship) {
         if ($this->Handler->insertHandlerChildRelationship($child_id, $handler_id, $relationship))
-            return json_encode(array('success' => 1, 'message' => "Parent/Handler succesfully registerd. " . anchor(site_url('account/handlers/registerChild/' . $handler_id), ' Attach more children').anchor(site_url('account/handlers/registerWithChild/' . $child_id), ' Add other child handler i.e mother')));
+            return json_encode(array('success' => 1, 'message' => "Parent/Handler succesfully registerd. " . anchor(site_url('account/handlers/registerChild/' . $handler_id), ' Attach more children') . anchor(site_url('account/handlers/registerWithChild/' . $child_id), ' Add other child handler i.e mother')));
         else
             return json_encode(array('success' => 0, 'message' => "An error occured when saving the parent/Handler"));
     }
@@ -117,6 +117,28 @@ class Handlers extends Admin_secure {
             print json_encode(array('success' => 1, 'message' => return_feedback(true, 'Handler succefully deleted. Return to the handler report from ' . anchor(site_url('reports/handlers'), 'here'))));
         else
             print json_encode(array('success' => 0, 'message' => return_feedback(false, 'An error occured when deleting the Child')));
+    }
+
+    function handlerSearch() {
+        ajax_only_request();
+        $search_item = $this->input->post('search');
+        $this->load->model('handlers/Handler');
+        if (strlen($search_item) < 2)
+            print json_encode(array("message" => "Empty search item!", 'success' => 0));
+        else {
+            $results = $this->Handler->searchHandler($search_item);
+            print json_encode($results);
+        }
+    }
+    
+     function attachChild($child_id) {
+        $this->load->model('children/Child');
+        $child_data = $this->Child->getChild($child_id);
+        if (count($child_data) < 1)
+            return_error_message("Non existent Child", "Selected child doesn't exist");
+        $data['child_name'] = $child_data[COL_CHILD_NAME];
+        $data['child_id'] = $child_data[COL_CHILD_ID];
+        $this->load->view('accounts/attach_parent',$data);
     }
 
 }

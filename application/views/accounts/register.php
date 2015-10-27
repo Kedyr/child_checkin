@@ -6,17 +6,22 @@
 </div>
 <div style="display:none;" class="modal fade in" id="childrenModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 </div>
+<div style="display:none;" class="modal fade in" id="attachHandlerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+</div>
+<div style="display:none;" class="modal fade in" id="attachSIblingsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+</div>
 <div id="bodyContent" class="row">
     <div class="col-md-2"></div>
     <div class="col-md-8">
         <div class="page-header">
             <div class="row">
                 <div class="col-md-12 ">
-                    <h3>Child Registration <small><?php print isset($action) ? $action : ''; ?></small></h3>            
+                    <h3>Child Registration <small><?php print isset($action_title) ? $action_title : ''; ?></small></h3>            
                 </div>
             </div>
         </div>
         <div id="contentArea">
+             <span id="feedback"></span>
             <div class="row">
                 <?php if ($action == 'edit'): ?>
                     <div class="col-md-5 pull-right">
@@ -31,10 +36,10 @@
 
                 <div class="col-md-7">
 
-                    <span id="feedback"></span>
+                   
                     <div id="form_Details">
                         <?php
-                        echo form_open(site_url('account/childAccounts/saveChildDetails/'), array('id' => 'create_child'));
+                        echo form_open(site_url('account/child_accounts/saveChildDetails/'), array('id' => 'create_child'));
                         $this->load->view('accounts/register_source');
                         print form_close();
                         ?>

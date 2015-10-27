@@ -8,7 +8,7 @@ if (!defined('BASEPATH'))
  */
 require APPPATH . '/controllers/admin_secure.php';
 
-class CheckIn extends Admin_secure {
+class Checkin extends Admin_secure {
     
     function __construct() {
         parent::__construct();
@@ -19,7 +19,7 @@ class CheckIn extends Admin_secure {
         $this->load->model('children/Child');
         $data['checkinReg_active'] = 'active';
         $all_children = $this->Child->getAllForSearch();
-        $data['children'] = json_encode($all_children);
+        $data['children'] = excapeJsonStrings(json_encode($all_children));
         $this->load->view('checkin/checkin', $data);
     }
     
@@ -81,7 +81,9 @@ class CheckIn extends Admin_secure {
         $data[COL_HANDLER_NAME] = $handler_name;
         $card_num = $this->input->post('cardNo');
         $data[COL_CHECK_IN_NUMBER] = $card_num;
-        $data[COL_SIBLING_COUNT] = $this->input->post('siblingNo');
+        $sibling_count = $this->input->post('siblingNo');
+        if(!is_numeric($sibling_count))
+            $sibling_count = 0;
         $data[COL_CHECK_IN_UnderId] = $checkin_id;
          $data[COL_STATUS] = $this->config->item('checkin_status_in');
 
@@ -93,7 +95,7 @@ class CheckIn extends Admin_secure {
         if ($this->Rollcall->checkIfCheckinNumberGivenOut($card_num)) {
             print json_encode(array('success' => 0, 'message' =>return_feedback(false, 'Selected Card number has already been used!')));
         }else{
-            if ($this->Rollcall->updateChildrenCheckinWIthHandlerDetails($data, $checkin_id))
+            if ($this->Rollcall->updateChildrenCheckinWIthHandlerDetails($data, $checkin_id,$sibling_count))
                 print json_encode(array('success'=>1,'message'=>return_feedback(true, 'Children succefully checked-In ')));
             else
                 print json_encode(array('success'=>0,'message'=>return_feedback(false, 'An error occured when completing child check-in')));

@@ -6,6 +6,8 @@
 </div>
 <div style="display:none;" class="modal fade in" id="childrenModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 </div>
+<div style="display:none;" class="modal fade in" id="attachChildrenModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+</div>
 <div id="bodyContent" class="row">
     <div class="col-md-2"></div>
     <div class="col-md-8">
@@ -14,13 +16,14 @@
                 <div class="col-md-12">
                     <h3>Parent/Handler Registration<small>
                             <?php if (isset($child_id)): ?>
-                                for  <span class="colorHeadings"><?php print anchor(site_url('account/childaccounts/edit/' . $child_id), isset($child_name) ? $child_name : ''); ?> </span>
+                                for  <span class="colorHeadings"><?php print anchor(site_url('account/child_accounts/edit/' . $child_id), isset($child_name) ? $child_name : ''); ?> </span>
                             <?php endif; ?>
                         </small></h3>            
                 </div>
             </div>
         </div>
         <div id="contentArea">
+             <span id="feedback"></span>
              <div class="row">
                 <?php if ($action == 'edit'): ?>
                     <div class="col-md-5 pull-right">
@@ -32,7 +35,7 @@
                     </div>
                     <?php endif; ?>
             <div class="col-md-7">
-                <span id="feedback"></span>
+               
                 <div id="form_Details">
                     <?php echo form_open(site_url('account/handlers/saveHandlerDetails/'), array('id' => 'create_handler')); ?>
                     <label>Name</label>
@@ -108,6 +111,7 @@
         $('#childrenModal').modal({'show': true});
         $('#parentsModal').modal('hide');
     }
+
     function showParents(childId) {
         $("#parentsModal").load("<?php print site_url('reports/children/getChildHandlers'); ?>" + "/" + childId);
         $('#parentsModal').modal({'show': true});
@@ -122,6 +126,14 @@
             });
         }
     }
+    
+    
+    function attachChildHandler(handlerId) {
+        $("#attachChildrenModal").load("<?php print site_url('account/child_accounts/attachHandler'); ?>" + "/" + handlerId);
+        $('#attachChildrenModal').modal({'show': true});
+    }
+    
+    
 </script>
 
 

@@ -1,7 +1,7 @@
 <label>Name</label>
 <input class="form-control" required="required" placeholder="child's name" value="<?php print isset($child_data[COL_CHILD_NAME]) ? $child_data[COL_CHILD_NAME] : ''  ?>" id="name" name="name" type="text">
 <label>Date of Birth</label>
-<input class="form-control" id="dob"  placeholder="Date of birth" value="<?php print isset($child_data[COL_DOB]) ? $child_data[COL_DOB] : ''  ?>" name="dob" type="text">
+<input class="form-control" id="dob"  placeholder="Date of birth" value="<?php print isset($dob) ? $dob : ''; ?>" name="dob" type="text">
 <label>Gender</label>
 <?php
 $sex = isset($child_data[COL_SEX]) ? $child_data[COL_SEX] : '';

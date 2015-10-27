@@ -31,10 +31,20 @@
 
     function deleteChild(childId){
         if(confirm("Are you sure you want to delete this child")){
-            $.post("<?php print site_url('account/childAccounts/delete'); ?>",{'childId':childId},function(response){
+            $.post("<?php print site_url('account/child_accounts/delete'); ?>",{'childId':childId},function(response){
                 response = JSON.parse(response);
                 $('#form_Details').html(response.message);
             });
         }
+    }
+    
+   function attachHandler(child_id) {
+        $("#attachHandlerModal").load("<?php print site_url('account/handlers/attachChild'); ?>" + "/" + child_id);
+        $('#attachHandlerModal').modal({'show': true});
+    }
+
+       function attachHandler(child_id) {
+        $("#attachHandlerModal").load("<?php print site_url('account/handlers/attachChild'); ?>" + "/" + child_id);
+        $('#attachHandlerModal').modal({'show': true});
     }
 </script>

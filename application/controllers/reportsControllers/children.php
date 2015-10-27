@@ -48,5 +48,5 @@ class Children extends Admin_secure {
         $data['handler_id'] = $handler_id;
         $this->load->view('reports/parent_children', $data);
     }
-
+    
 }

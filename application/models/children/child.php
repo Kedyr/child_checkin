@@ -80,5 +80,17 @@ class Child extends CI_Model {
     function deleteChild($child_id){
         return $this->db->delete(TBL_CHILDREN,array(COL_CHILD_ID=>$child_id));
     }
+    
+    function searchChild($search_item){
+        $this->db->select(COL_CHILD_NAME.' , '.COL_CHILD_ID );
+        $this->db->from(TBL_CHILDREN);
+        $query = $this->db->like(COL_CHILD_NAME, $search_item)->get();
+        return $this->Dbwrapper->summarize_get_and_select($query);
+    }
 
+    function attachSiblings($child_id,$child_id_sibling_id,$handlers){
+        foreach($handlers as $handler){
+            $this->db->insert(TBL_CHILD_HANDLER_RELATIONSHIP, array(COL_CHILD_ID => $child_id_sibling_id, COL_RELATIONSHIP => $handler[COL_RELATIONSHIP], COL_HANDLER_ID => $handler[COL_HANDLER_ID]));
+        }
+    }
 }

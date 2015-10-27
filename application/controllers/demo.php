@@ -6,11 +6,13 @@ if (!defined('BASEPATH'))
  *
  * @author Kedyr <deniskedyr@gmail.com>
  */
-require APPPATH . '/controllers/admin_secure.php';
+//require APPPATH . '/controllers/admin_secure.php';
 
-class Demo extends Admin_secure {
+class Demo extends CI_Controller {
     
     
-    
+    function index(){
+    	print "ffff";
+    }
 
 }

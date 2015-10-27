@@ -7,7 +7,7 @@
             <h4 class="modal-title" id="myModalLabel"><?php print $child_name; ?> Siblings<a class="anchorjs-link" href="#myModalLabel"><span class="anchorjs-icon"></span></a></h4>
         </div>
         <div class="modal-body">
-            <?php print anchor(site_url('account/handlers/registerWithChild/' . $child_id), 'Add siblings', array('class' => 'btn btn-md btn-success ')); ?>
+            <?php print anchor(site_url('account/child_accounts/addSibling/' . $child_id), 'Add siblings', array('class' => 'btn btn-md btn-success ')); ?>
             <?php $this->load->view('reports/children_source', array('children' => $siblings)); ?>
         </div>
         <div class="modal-footer">
